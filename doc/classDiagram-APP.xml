@@ -1,0 +1,39 @@
+<diagram program="umletino" version="14.2"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>120</x><y>90</y><w>210</w><h>140</h></coordinates><panel_attributes>Login
+--
+
+- registration
+
+--
+
++ registrationValidation()
++ on_enterButton_pressed()
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>440</x><y>90</y><w>210</w><h>140</h></coordinates><panel_attributes>OptionsHandler
+--
+
+--
+
++ getTransactionHistoric()
++ on_accessRequest_pressed()
++ on_exitRequest_pressed()
++ on_rechargeCredit_pressed()
++ on_transactionHistoric_pressed()
+
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>290</x><y>350</y><w>210</w><h>140</h></coordinates><panel_attributes>TransitionRequest
+--
+
+- codeGenerated
+- codeInserted
+
+--
+
++ sendOpenCommand()
++ on_openTurnstile_pressed()
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>570</x><y>350</y><w>210</w><h>140</h></coordinates><panel_attributes>RechargeCredit
+--
+
+
+--</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>320</x><y>150</y><w>130</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;110;10</additional_attributes></element><element><id>Relation</id><coordinates><x>330</x><y>150</y><w>130</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>110;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>400</x><y>220</y><w>160</w><h>150</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;130;140;10</additional_attributes></element><element><id>Relation</id><coordinates><x>540</x><y>220</y><w>140</w><h>150</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>120;130;10;10</additional_attributes></element></diagram>
