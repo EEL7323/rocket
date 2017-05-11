@@ -12,7 +12,7 @@ uart::uart(uint8_t p_baseAddress, uint16_t p_baudRate){
 	baseAddress = p_baseAddress;
 	baudRate = p_baudRate;
 
-	//pins from msp if
+	//Pins Configurations from the MSP430
 	switch(baseAddress){
 	case USCI_A0_BASE:
     	UART_A0_PORT |= UART_A0_TX + UART_A0_RX;
@@ -22,17 +22,21 @@ uart::uart(uint8_t p_baseAddress, uint16_t p_baudRate){
 		PM_UCA1();
     	break;
 	default:
+		// if a base address is not defined return null.
 		return;
 	}
 
-    //Disable the USCI Module
+    //To configurate the SPI you must stop the state machine
     HWREG8(baseAddress + OFS_UCAxCTL1) |= UCSWRST;
 
     uint16_t clockPrescalar;
     uint8_t firstModReg = 0;
     uint8_t secondModReg;
 
-	//config baudrate
+    /* This configurations values are for a 4 MHz clock.
+     * They are setting the prescalar register and a modulation register as specified at the
+     * ti.com/lit/ug/slau208p/slau208p.pdf page 951
+     */
 	switch(baudRate){
 	case 9600:
 		clockPrescalar = 416;
@@ -65,9 +69,23 @@ uart::uart(uint8_t p_baseAddress, uint16_t p_baudRate){
 	//config interrupts mostly will be rx
 
 
-	//enable the state machine
-
+	//Enable the State Machine
+	HWREG8(baseAddress + OFS_UCAxCTL1) &= ~(UCSWRST);
 }
+
+void uart::transmit(*uint8_t transmitData)
+{
+    //If interrupts are not used, poll for flags
+    if(!(HWREG8(baseAddress + OFS_UCAxIE) & UCTXIE))
+    {
+        //Poll for transmit interrupt flag
+        while(!(HWREG8(baseAddress + OFS_UCAxIFG) & UCTXIFG))
+        {
+            ;
+        }
+    }
+
+    HWREG8(baseAddress + OFS_UCAxTXBUF) = transmitData;
 
 void uart::PM_UCA1(void) {
 	// Disable Interrupts before altering Port Mapping registers
@@ -89,3 +107,5 @@ void uart::PM_UCA1(void) {
 	__enable_interrupt();                     // Re-enable all interrupts
 #endif
 }
+
+

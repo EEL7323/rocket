@@ -18,12 +18,11 @@ class uart{
 	uint16_t baseAddress;
 
 public:
-	uart();
+	uart(uint8_t p_baseAddress, uint16_t p_baudRate);
 	~uart();
 	uint16_t getBaudRate();
-	uint8_t
-	void send(* uint8_t);
-	*uint8_t receive();
+	void transmit(*uint8_t data);
+	//*uint8_t receive();
 }
 
 
