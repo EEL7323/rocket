@@ -73,19 +73,23 @@ uart::uart(uint8_t p_baseAddress, uint16_t p_baudRate){
 	HWREG8(baseAddress + OFS_UCAxCTL1) &= ~(UCSWRST);
 }
 
-void uart::transmit(*uint8_t transmitData)
+void uart::transmit(uint8_t *transmitData)
 {
-    //If interrupts are not used, poll for flags
-    if(!(HWREG8(baseAddress + OFS_UCAxIE) & UCTXIE))
+    while(*transmitData != 0)
     {
-        //Poll for transmit interrupt flag
-        while(!(HWREG8(baseAddress + OFS_UCAxIFG) & UCTXIFG))
-        {
-            ;
-        }
+    	while (((HWREG8(baseAddress + OFS_UCAxSTAT) & UCBUSY) == 1)
+    	{
+    		HWREG8(baseAddress + OFS_UCAxTXBUF) = *transmitData++;
+    	}
     }
+}
 
-    HWREG8(baseAddress + OFS_UCAxTXBUF) = transmitData;
+
+void uart::receive(uint8_t &(*buffer)){
+
+
+}
+
 
 void uart::PM_UCA1(void) {
 	// Disable Interrupts before altering Port Mapping registers
@@ -109,3 +113,34 @@ void uart::PM_UCA1(void) {
 }
 
 
+
+//******************************************************************************
+//
+//This is the USCI_A1 interrupt vector service routine.
+//
+//******************************************************************************
+#pragma vector=USCI_A0_VECTOR
+void USCI_A0_ISR(void)
+{
+    switch(__even_in_range(UCA0IV,4))
+    {
+    //Vector 2 - RXIFG
+    case 2:
+        break;
+    default:
+    	break;
+    }
+}
+
+#pragma vector=USCI_A1_VECTOR
+void USCI_A1_ISR(void)
+{
+    switch(__even_in_range(UCA0IV,4))
+    {
+    //Vector 2 - RXIFG
+    case 2:
+        break;
+    default:
+    	break;
+    }
+}
