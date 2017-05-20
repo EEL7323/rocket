@@ -8,23 +8,12 @@
 
 #include "uart.h"
 
-uart::uart(uint8_t p_baseAddress, uint16_t p_baudRate){
+uart::uart(uint16_t p_baseAddress, uint16_t p_baudRate): uartPort((p_baseAddress == USCI_A0_BASE)? P3 : P4){
 	baseAddress = p_baseAddress;
 	baudRate = p_baudRate;
 
-	//Pins Configurations from the MSP430
-	switch(baseAddress){
-	case USCI_A0_BASE:
-    	UART_A0_PORT |= UART_A0_TX + UART_A0_RX;
-    	break;
-	case USCI_A1_BASE:
-		UART_A1_PORT |= UART_A1_TX + UART_A1_RX;
+	if(baseAddress == USCI_A1_BASE)
 		PM_UCA1();
-    	break;
-	default:
-		// if a base address is not defined return null.
-		return;
-	}
 
     //To configurate the SPI you must stop the state machine
     HWREG8(baseAddress + OFS_UCAxCTL1) |= UCSWRST;
@@ -77,7 +66,7 @@ void uart::transmit(uint8_t *transmitData)
 {
     while(*transmitData != 0)
     {
-    	while (((HWREG8(baseAddress + OFS_UCAxSTAT) & UCBUSY) == 1)
+    	while (((HWREG8(baseAddress + OFS_UCAxSTAT) & UCBUSY) == 1))
     	{
     		HWREG8(baseAddress + OFS_UCAxTXBUF) = *transmitData++;
     	}
@@ -85,7 +74,7 @@ void uart::transmit(uint8_t *transmitData)
 }
 
 
-void uart::receive(uint8_t &(*buffer)){
+void uart::receive(uint8_t *buffer){
 
 
 }
