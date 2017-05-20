@@ -70,7 +70,7 @@ void uart::transmit(uint8_t *transmitData)
 {
     while(*transmitData != 0)
     {
-    	while ((HWREG8(baseAddress + OFS_UCAxSTAT) & UCBUSY) == 1);
+    	while (!(HWREG8(baseAddress + OFS_UCAxIFG) & UCTXIFG));
     		HWREG8(baseAddress + OFS_UCAxTXBUF) = *transmitData++;
     }
 }
