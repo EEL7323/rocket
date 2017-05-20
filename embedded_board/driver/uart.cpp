@@ -9,16 +9,20 @@
 #include "uart.h"
 
 uart::uart(uint16_t p_baseAddress, uint16_t p_baudRate): uartPort((p_baseAddress == USCI_A0_BASE)? P3 : P4){
+
+    //port configurations
+    uartPort.setPinFunctionSelection(BIT3);
+
 	baseAddress = p_baseAddress;
 	baudRate = p_baudRate;
 
 	if(baseAddress == USCI_A1_BASE)
 		PM_UCA1();
 
-    //To configurate the SPI you must stop the state machine
+    //To configurate the UART you must stop the state machine
     HWREG8(baseAddress + OFS_UCAxCTL1) |= UCSWRST;
 
-    uint16_t clockPrescalar;
+    uint16_t clockPrescaler;
     uint8_t firstModReg = 0;
     uint8_t secondModReg;
 
@@ -28,32 +32,32 @@ uart::uart(uint16_t p_baseAddress, uint16_t p_baudRate): uartPort((p_baseAddress
      */
 	switch(baudRate){
 	case 9600:
-		clockPrescalar = 416;
-		secondModReg   = 6;
+		clockPrescaler = 109;
+		secondModReg   = 0;
 		break;
 	case 19200:
-		clockPrescalar = 208;
+	    clockPrescaler = 208;
 		secondModReg   = 3;
 		break;
 	case 38400:
-		clockPrescalar = 104;
+	    clockPrescaler = 104;
 		secondModReg   = 1;
 		break;
 	case 57600:
-		clockPrescalar = 69;
+	    clockPrescaler = 69;
 		secondModReg   = 4;
 		break;
 	case 115200:
-		clockPrescalar = 34;
+	    clockPrescaler = 34;
 		secondModReg   = 6;
 		break;
 	default:
-		clockPrescalar = 416;
+	    clockPrescaler = 416;
 		secondModReg   = 6;
 	}
 
-	HWREG16(baseAddress + OFS_UCAxBRW) = clockPrescalar;
-	HWREG8(baseAddress + OFS_UCAxCTL1) = (firstModReg << 4) + (secondModReg << 1);
+	HWREG16(baseAddress + OFS_UCAxBRW) = clockPrescaler + (secondModReg << 8);
+	HWREG8(baseAddress + OFS_UCAxCTL1) = UCSSEL_2;
 
 	//config interrupts mostly will be rx
 
@@ -66,10 +70,8 @@ void uart::transmit(uint8_t *transmitData)
 {
     while(*transmitData != 0)
     {
-    	while (((HWREG8(baseAddress + OFS_UCAxSTAT) & UCBUSY) == 1))
-    	{
+    	while ((HWREG8(baseAddress + OFS_UCAxSTAT) & UCBUSY) == 1);
     		HWREG8(baseAddress + OFS_UCAxTXBUF) = *transmitData++;
-    	}
     }
 }
 
