@@ -26,6 +26,35 @@
 /* PIN DEFINITIONS                                              */
 /****************************************************************/
 
+/****************************************************************/
+/* PORT IO DEFINITIONS                                             */
+/****************************************************************/
+
+/**** BASE ADDRESSES ****/
+
+#define P1 (__MSP430_BASEADDRESS_PORTA_R__)
+#define P2 (__MSP430_BASEADDRESS_PORTA_R__ + 0x01)
+#define P3 (__MSP430_BASEADDRESS_PORTB_R__)
+#define P4 (__MSP430_BASEADDRESS_PORTB_R__ + 0x01)
+#define P5 (__MSP430_BASEADDRESS_PORTC_R__)
+#define P6 (__MSP430_BASEADDRESS_PORTC_R__ + 0x01)
+#define P7 (__MSP430_BASEADDRESS_PORTD_R__)
+#define P8 (__MSP430_BASEADDRESS_PORTD_R__ + 0x01)
+
+/**** REGISTER OFFSET ****/
+
+#define input_offset 0x00
+#define output_offset 0x02
+#define direction_offset 0x04
+#define pullup_enable_offset 0x06
+#define drive_strength_offset 0x08
+#define function_selection_offset 0x0A
+
+/**** PORT DIRECTION ****/
+
+#define input 0
+#define output 1
+
 
 /****************************************************************/
 /* UART DEFINITIONS                                             */
