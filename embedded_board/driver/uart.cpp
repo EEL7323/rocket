@@ -12,6 +12,7 @@ uart::uart(uint16_t p_baseAddress, uint16_t p_baudRate): uartPort((p_baseAddress
 
     //port configurations
     uartPort.setPinFunctionSelection(BIT3);
+    uartPort.setPinFunctionSelection(BIT4);
 
 	baseAddress = p_baseAddress;
 	baudRate = p_baudRate;
@@ -60,7 +61,7 @@ uart::uart(uint16_t p_baseAddress, uint16_t p_baudRate): uartPort((p_baseAddress
 	HWREG8(baseAddress + OFS_UCAxCTL1) = UCSSEL_2;
 
 	//config interrupts mostly will be rx
-
+	HWREG8(baseAddress + OFS_UCAxIE) = UCRXIE;
 
 	//Enable the State Machine
 	HWREG8(baseAddress + OFS_UCAxCTL1) &= ~(UCSWRST);
@@ -76,9 +77,12 @@ void uart::transmit(uint8_t *transmitData)
 }
 
 
-void uart::receive(uint8_t *buffer){
+uint8_t uart::receive_USCI_A0(void){
+    return UCA0RXBUF;
+}
 
-
+uint8_t uart::receive_USCI_A1(void){
+    return UCA1RXBUF;
 }
 
 
@@ -111,26 +115,27 @@ void uart::PM_UCA1(void) {
 //
 //******************************************************************************
 #pragma vector=USCI_A0_VECTOR
-void USCI_A0_ISR(void)
+__interrupt void uart::USCI_A0_ISR(void)
 {
+    volatile uint8_t data;
     switch(__even_in_range(UCA0IV,4))
     {
     //Vector 2 - RXIFG
     case 2:
-        break;
+        data = receive_USCI_A0();
     default:
     	break;
     }
 }
 
 #pragma vector=USCI_A1_VECTOR
-void USCI_A1_ISR(void)
+__interrupt void uart::USCI_A1_ISR(void)
 {
     switch(__even_in_range(UCA0IV,4))
     {
     //Vector 2 - RXIFG
     case 2:
-        break;
+        receive_USCI_A1();
     default:
     	break;
     }
