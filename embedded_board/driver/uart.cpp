@@ -8,28 +8,22 @@
 
 #include "uart.h"
 
-uart::uart(uint8_t p_baseAddress, uint16_t p_baudRate){
+uart::uart(uint16_t p_baseAddress, uint16_t p_baudRate): uartPort((p_baseAddress == USCI_A0_BASE)? P3 : P4){
+
+    //port configurations
+    uartPort.setPinFunctionSelection(BIT3);
+    uartPort.setPinFunctionSelection(BIT4);
+
 	baseAddress = p_baseAddress;
 	baudRate = p_baudRate;
 
-	//Pins Configurations from the MSP430
-	switch(baseAddress){
-	case USCI_A0_BASE:
-    	UART_A0_PORT |= UART_A0_TX + UART_A0_RX;
-    	break;
-	case USCI_A1_BASE:
-		UART_A1_PORT |= UART_A1_TX + UART_A1_RX;
+	if(baseAddress == USCI_A1_BASE)
 		PM_UCA1();
-    	break;
-	default:
-		// if a base address is not defined return null.
-		return;
-	}
 
-    //To configurate the SPI you must stop the state machine
+    //To configurate the UART you must stop the state machine
     HWREG8(baseAddress + OFS_UCAxCTL1) |= UCSWRST;
 
-    uint16_t clockPrescalar;
+    uint16_t clockPrescaler;
     uint8_t firstModReg = 0;
     uint8_t secondModReg;
 
@@ -39,53 +33,58 @@ uart::uart(uint8_t p_baseAddress, uint16_t p_baudRate){
      */
 	switch(baudRate){
 	case 9600:
-		clockPrescalar = 416;
-		secondModReg   = 6;
+		clockPrescaler = 109;
+		secondModReg   = 0;
 		break;
 	case 19200:
-		clockPrescalar = 208;
+	    clockPrescaler = 208;
 		secondModReg   = 3;
 		break;
 	case 38400:
-		clockPrescalar = 104;
+	    clockPrescaler = 104;
 		secondModReg   = 1;
 		break;
 	case 57600:
-		clockPrescalar = 69;
+	    clockPrescaler = 69;
 		secondModReg   = 4;
 		break;
 	case 115200:
-		clockPrescalar = 34;
+	    clockPrescaler = 34;
 		secondModReg   = 6;
 		break;
 	default:
-		clockPrescalar = 416;
+	    clockPrescaler = 416;
 		secondModReg   = 6;
 	}
 
-	HWREG16(baseAddress + OFS_UCAxBRW) = clockPrescalar;
-	HWREG8(baseAddress + OFS_UCAxCTL1) = (firstModReg << 4) + (secondModReg << 1);
+	HWREG16(baseAddress + OFS_UCAxBRW) = clockPrescaler + (secondModReg << 8);
+	HWREG8(baseAddress + OFS_UCAxCTL1) = UCSSEL_2;
 
 	//config interrupts mostly will be rx
-
+	HWREG8(baseAddress + OFS_UCAxIE) = UCRXIE;
 
 	//Enable the State Machine
 	HWREG8(baseAddress + OFS_UCAxCTL1) &= ~(UCSWRST);
 }
 
-void uart::transmit(*uint8_t transmitData)
+void uart::transmit(uint8_t *transmitData)
 {
-    //If interrupts are not used, poll for flags
-    if(!(HWREG8(baseAddress + OFS_UCAxIE) & UCTXIE))
+    while(*transmitData != 0)
     {
-        //Poll for transmit interrupt flag
-        while(!(HWREG8(baseAddress + OFS_UCAxIFG) & UCTXIFG))
-        {
-            ;
-        }
+    	while (!(HWREG8(baseAddress + OFS_UCAxIFG) & UCTXIFG));
+    		HWREG8(baseAddress + OFS_UCAxTXBUF) = *transmitData++;
     }
+}
 
-    HWREG8(baseAddress + OFS_UCAxTXBUF) = transmitData;
+
+uint8_t uart::receive_USCI_A0(void){
+    return UCA0RXBUF;
+}
+
+uint8_t uart::receive_USCI_A1(void){
+    return UCA1RXBUF;
+}
+
 
 void uart::PM_UCA1(void) {
 	// Disable Interrupts before altering Port Mapping registers
@@ -109,3 +108,35 @@ void uart::PM_UCA1(void) {
 }
 
 
+
+//******************************************************************************
+//
+//This is the USCI_A1 interrupt vector service routine.
+//
+//******************************************************************************
+#pragma vector=USCI_A0_VECTOR
+__interrupt void uart::USCI_A0_ISR(void)
+{
+    volatile uint8_t data;
+    switch(__even_in_range(UCA0IV,4))
+    {
+    //Vector 2 - RXIFG
+    case 2:
+        data = receive_USCI_A0();
+    default:
+    	break;
+    }
+}
+
+#pragma vector=USCI_A1_VECTOR
+__interrupt void uart::USCI_A1_ISR(void)
+{
+    switch(__even_in_range(UCA0IV,4))
+    {
+    //Vector 2 - RXIFG
+    case 2:
+        receive_USCI_A1();
+    default:
+    	break;
+    }
+}

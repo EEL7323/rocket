@@ -10,20 +10,26 @@
 
 #include <msp430.h>
 #include <stdint.h>
+#include "io.h"
 
 
 class uart{
 
+private:
 	uint16_t baudRate;
 	uint16_t baseAddress;
+	port uartPort;
+	void PM_UCA1(void);
 
 public:
-	uart(uint8_t p_baseAddress, uint16_t p_baudRate);
+	uart(uint16_t p_baseAddress, uint16_t p_baudRate);
 	~uart();
-	uint16_t getBaudRate();
-	void transmit(*uint8_t data);
-	//*uint8_t receive();
-}
+	void transmit(uint8_t *data);
+	static uint8_t receive_USCI_A0(void);
+	static uint8_t receive_USCI_A1(void);
+	static interrupt void USCI_A0_ISR(void);
+	static interrupt void USCI_A1_ISR(void);
+};
 
 
 
