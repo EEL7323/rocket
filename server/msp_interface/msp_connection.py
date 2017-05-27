@@ -35,7 +35,7 @@ while 1:
         pass
     elif command == 's': #sinc
         uart.write('\rsinc')
-    else
+    else:
         uart.write('\rError')
 
 
