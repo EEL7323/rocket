@@ -12,7 +12,7 @@ ser = serial.Serial(
 
 while 1:
     data = ser.read(1)
-    ser.write('\rReceived: ')
+#    ser.write('\rReceived: ')
     ser.write(data)
     
     
