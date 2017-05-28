@@ -15,6 +15,17 @@ def qGetCredit( conn, student_id ) :
     print id, name, credits 
     return credits 
 
+def qSetCredit( conn, student_id, value) :
+    print int(value)
+    cur = conn.cursor()
+    query = "UPDATE students SET credit = "+value+" WHERE id = "+student_id
+    print query
+    cur.execute( query )
+    print 'Checking write...'
+    conn.commit()
+    #qGetCredit( conn, student_id )
+
+
 hostname = 'localhost'
 username = 'mfrata'
 password = 'sudofrata'
@@ -27,28 +38,50 @@ ser = serial.Serial(
     parity=serial.PARITY_NONE,
     stopbits=serial.STOPBITS_ONE,
     bytesize=serial.EIGHTBITS,
-    timeout=10
+    timeout=100
 )
 
 while 1:
+    print "Waiting for Command.."
     command = ser.read(1)
-    if command == 'r':
+    if command == 'r': # read
 	print 'Command = read.'
 	print 'Waiting for id...'
 	stud_id = ser.read(2)
 	print 'id = '+ stud_id
         try:
 	    print 'Connecting to db...'
-            myConnection = psycopg2.connect( host=hostname, user=username, password=password, dbname=database )
+            readConn = psycopg2.connect( host=hostname, user=username, password=password, dbname=database )
             print 'Quering credit'
-	    credit = qGetCredit( myConnection, stud_id )
+	    credit = qGetCredit( readConn, stud_id )
 	    print "Seding to msp: ",credit
 	    ser.write( str(credit) )
 	except:
             print "Error to connection or query"
         finally:
 	    print 'Closing db Connection.'
-            myConnection.close()
+            readConn.close()
+    elif command == 'w': #write
+        print 'Command = write'
+	print 'Waiting for id...'
+	stud_id = ser.read(2)
+	print 'id = '+ stud_id
+        print 'Watigin for new value...'
+	new_credit = ser.read(3)
+	print 'new credit = '+new_credit
+	try:
+	    print 'Connecting to db...'
+	    writeConn = psycopg2.connect( host=hostname, user=username, password=password, dbname=database )
+            print 'Quering credit'
+            qSetCredit( writeConn, stud_id, new_credit )
+            print "Done."
+	except:
+	    print "Error while updating table"
+	finally:
+	    print 'Closing db Connection'
+	    writeConn.close()
+    else:
+	print 'Unknown Command or Serial Timeout'    
 
 
 
