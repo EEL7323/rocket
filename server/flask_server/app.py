@@ -86,7 +86,7 @@ def search():
 def updateCredit():
     pass
 
-@app.route('/returnToSearch', methods=['POST'])
+@app.route('/returnToSearch')
 def returnToSearch():
     return render_template('search.html')
 
