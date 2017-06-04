@@ -53,6 +53,7 @@ def login():
 def search():
     conn, atribute, uniId, name, credits= None
     userID = request.form['id']
+    print type(userID), userID
     try:
 	    conn = psycopg2.connect( host=hostnm, user=usernm, password=passwd, dbname=db )
     except:
