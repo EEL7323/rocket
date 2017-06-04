@@ -51,7 +51,11 @@ def login():
 
 @app.route('/search', methods=['POST'])
 def search():
-    conn, atribute, uniId, name, credits= None
+    conn = None
+    atribute = None
+    uniId = None
+    name = None
+    credits = None
     userID = request.form['id']
     print type(userID), userID
     try:
