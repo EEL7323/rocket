@@ -39,7 +39,7 @@ def login():
 	    atribute = "User Not Found"
 	    print atribute
     if name == username and _passwd == password:
-        redirect_page = 'students.html'
+        redirect_page = 'search.html'
         atribute = username
     else:
         redirect_page = 'error.html'
@@ -51,11 +51,39 @@ def login():
 
 @app.route('/search', methods=['POST'])
 def search():
-    pass
+    conn, atribute, uniId, name, credits= None
+    userID = request.form['id']
+    try:
+	    conn = psycopg2.connect( host=hostnm, user=usernm, password=passwd, dbname=db )
+    except:
+	    atribute = "DB Connection Failed"
+	    print atribute
+    query = "SELECT * FROM students WHERE id = "+userID
+    print query
+    try:
+    	cur = conn.cursor()
+    	cur.execute( query )
+    	uniId, name, credits = cur.fetchall().pop()
+    except:
+        if atribute == None:
+	       atribute = "Student Not Found"
+	       print atribute
+    if atribute != None:
+        render_template = 'searchfailed.html'
+    else:
+        render_template= 'student.html'
+    conn.close()
+    return render_template(redirect_page, atribute=atribute, studentName=name,
+            studentId=uniId, studentCredits=credits)
+
 
 @app.route('/updateCredit', methods=['POST'])
 def updateCredit():
     pass
+
+@app.route('/returnToSearch', methods=['POST'])
+def returnToSearch():
+    return render_template('search.html')
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80, debug=True)
