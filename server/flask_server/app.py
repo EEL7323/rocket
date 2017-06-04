@@ -74,9 +74,9 @@ def search():
 	       atribute = "Student Not Found"
 	       print atribute
     if atribute != None:
-        render_template = 'searchfailed.html'
+        redirect_page = 'searchfailed.html'
     else:
-        render_template= 'student.html'
+        redirect_page= 'student.html'
     conn.close()
     return render_template(redirect_page, atribute=atribute, studentName=name,
             studentId=uniId, studentCredits=credits)
