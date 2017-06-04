@@ -17,20 +17,36 @@ def hello():
 @app.route('/login', methods=['POST'])
 def login():
     conn = None
+    error = None
     username = request.form['username']
     password = request.form['password']
+    uniId = None
+    name = None
+    _passwd = None
     print username, password
-    conn = psycopg2.connect( host=hostnm, user=usernm, password=passwd, dbname=db )
-    query = "SELECT * FROM employees WHERE name = "+ username
+    try:
+	conn = psycopg2.connect( host=hostnm, user=usernm, password=passwd, dbname=db )
+    except:
+	error = "DB Connection Failed"
+	print error	
+    query = "SELECT * FROM employees WHERE name = '" +username+"\'"
     print query
-    cur.execute( query )
-    uniId, name, _passwd = cur.fetchall().pop()
+    try:
+    	cur = conn.cursor()
+    	cur.execute( query )
+    	uniId, name, _passwd = cur.fetchall().pop()
+    except:
+	error = "User Not Found"
+	print error
     if name == username and _passwd == password:
         redirect_page = 'students.html'
     else:
         redirect_page = 'error.html'
+	if error == None:
+	    error = "Password or login mismatched"
+	    print error
     conn.close()
-    return render_template(redirect_page)
+    return render_template(redirect_page, atribute=error)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80, debug=True)
