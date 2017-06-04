@@ -17,7 +17,7 @@ def hello():
 @app.route('/login', methods=['POST'])
 def login():
     conn = None
-    error = None
+    atribute = None
     username = request.form['username']
     password = request.form['password']
     uniId = None
@@ -25,28 +25,37 @@ def login():
     _passwd = None
     print username, password
     try:
-	conn = psycopg2.connect( host=hostnm, user=usernm, password=passwd, dbname=db )
+	    conn = psycopg2.connect( host=hostnm, user=usernm, password=passwd, dbname=db )
     except:
-	error = "DB Connection Failed"
-	print error	
-    query = "SELECT * FROM employees WHERE name = '" +username+"\'"
+	    atribute = "DB Connection Failed"
+	    print atribute
+    query = "SELECT * FROM employees WHERE name = \'"+username+"\'"
     print query
     try:
     	cur = conn.cursor()
     	cur.execute( query )
     	uniId, name, _passwd = cur.fetchall().pop()
     except:
-	error = "User Not Found"
-	print error
+	    atribute = "User Not Found"
+	    print atribute
     if name == username and _passwd == password:
         redirect_page = 'students.html'
+        atribute = username
     else:
         redirect_page = 'error.html'
-	if error == None:
-	    error = "Password or login mismatched"
-	    print error
+	if atribute == None:
+	    atribute = "Wrong password"
+	    print atribute
     conn.close()
-    return render_template(redirect_page, atribute=error)
+    return render_template(redirect_page, atribute=atribute)
+
+@app.route('/search', methods=['POST'])
+def search():
+    pass
+
+@app.route('/updateCredit', methods=['POST'])
+def updateCredit():
+    pass
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80, debug=True)

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>UFSC Student</title>
+  </head>
+  <body>
+    <h1>Student: {{studentName}}</h1>
+    <p>Id: {{studentId}}</p>
+    <p>Total Credits: {{studentCredits}}</p>
+    <br>
+    <h2>Update Credit</h2>
+    <form method="POST" action="/updateCredit">
+        <label>Credit:</label>
+        <input id="credit" name="credit" type="text" />
+        <input type="submit" value="Update"/>
+    </form>
+  </body>
+</html>
