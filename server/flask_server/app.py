@@ -20,14 +20,17 @@ def login():
     username = request.form['username']
     password = request.form['password']
     print username, password
-    try:
-        conn = psycopg2.connect( host=hostnm, user=usernm, password=passwd, dbname=db )
+    conn = psycopg2.connect( host=hostnm, user=usernm, password=passwd, dbname=db )
+    query = "SELECT * FROM employees WHERE name = "+ username
+    print query
+    cur.execute( query )
+    uniId, name, _passwd = cur.fetchall().pop()
+    if name == username and _passwd == password:
         redirect_page = 'students.html'
-    except:
+    else:
         redirect_page = 'error.html'
-    finally:
-        conn.close()
-        return render_template(redirect_page)
+    conn.close()
+    return render_template(redirect_page)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80, debug=True)
