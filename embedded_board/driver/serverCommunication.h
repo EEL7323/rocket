@@ -6,7 +6,7 @@
 #include "uart.h"
 
 #define write_command "w"
-#define read_command 'r'
+#define read_command "r"
 
 
 class serverCommunication{

@@ -62,7 +62,7 @@ uart::uart(uint16_t p_baseAddress, uint16_t p_baudRate): uartPort((p_baseAddress
 	HWREG8(baseAddress + OFS_UCAxCTL1) = UCSSEL_2;
 
 	//config interrupts mostly will be rx
-	HWREG8(baseAddress + OFS_UCAxIE) = UCRXIE;
+//	HWREG8(baseAddress + OFS_UCAxIE) = UCRXIE;
 
 	//Enable the State Machine
 	HWREG8(baseAddress + OFS_UCAxCTL1) &= ~(UCSWRST);

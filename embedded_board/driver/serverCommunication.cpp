@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "serverCommunication.h"
 
 serverCommunication::serverCommunication() : UCA0(USCI_A0_BASE, 9600){
