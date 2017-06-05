@@ -89,7 +89,7 @@ def search():
 def updateCredit():
     value = request.form['credit']
     student_id = request.form['id']
-	conn = psycopg2.connect( host=hostnm, user=usernm, password=passwd, dbname=db )
+    conn = psycopg2.connect( host=hostnm, user=usernm, password=passwd, dbname=db )
     cur = conn.cursor()
     query = "UPDATE students SET credit = "+value+" WHERE id = "+student_id
     print query
@@ -98,9 +98,9 @@ def updateCredit():
     conn.commit()
     query = "SELECT * FROM students WHERE id = "+student_id
     print query
-	cur = conn.cursor()
-	cur.execute( query )
-	uniId, name, credits = cur.fetchall().pop()
+    cur = conn.cursor()
+    cur.execute( query )
+    uniId, name, credits = cur.fetchall().pop()
     conn.close()
     return render_template('student.html', atribute=atribute, studentName=name,
             studentId=uniId, studentCredits=credits)
