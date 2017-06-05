@@ -4,8 +4,8 @@ import psycopg2
 
 #defines of database
 hostnm = 'localhost'
-usernm = 'ufsc'
-passwd = 'sudoufsc'
+usernm = 'mfrata'
+passwd = 'sudofrata'
 db     = 'rocket_server'
 user_section = None
 
