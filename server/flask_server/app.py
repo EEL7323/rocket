@@ -87,7 +87,23 @@ def search():
 
 @app.route('/updateCredit', methods=['POST'])
 def updateCredit():
-    pass
+    value = request.form['credit']
+    student_id = request.form['id']
+	conn = psycopg2.connect( host=hostnm, user=usernm, password=passwd, dbname=db )
+    cur = conn.cursor()
+    query = "UPDATE students SET credit = "+value+" WHERE id = "+student_id
+    print query
+    cur.execute( query )
+    print 'Updating DB'
+    conn.commit()
+    query = "SELECT * FROM students WHERE id = "+student_id
+    print query
+	cur = conn.cursor()
+	cur.execute( query )
+	uniId, name, credits = cur.fetchall().pop()
+    conn.close()
+    return render_template('student.html', atribute=atribute, studentName=name,
+            studentId=uniId, studentCredits=credits)
 
 @app.route('/returnToSearch')
 def returnToSearch():
