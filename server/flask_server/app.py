@@ -102,7 +102,7 @@ def updateCredit():
     cur.execute( query )
     uniId, name, credits = cur.fetchall().pop()
     conn.close()
-    return render_template('student.html', atribute=atribute, studentName=name,
+    return render_template('student.html', studentName=name,
             studentId=uniId, studentCredits=credits)
 
 @app.route('/returnToSearch')
