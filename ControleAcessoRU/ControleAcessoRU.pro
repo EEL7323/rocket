@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network
+QT       += core gui network bluetooth sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -24,16 +24,26 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-    interface.cpp \
-    secondinterface.cpp
+    login.cpp \
+    optionsHandler.cpp \
+    bluetooth.cpp \
+    serversocket.cpp \
+    recharge.cpp \
+    historictransaction.cpp
 
 HEADERS  += \
-    interface.h \
-    secondinterface.h
+    login.h \
+    optionsHandler.h \
+    bluetooth.h \
+    serversocket.h \
+    recharge.h \
+    historictransaction.h
 
 FORMS    += \
-    interface.ui \
-    secondinterface.ui
+    login.ui \
+    optionsHandler.ui \
+    recharge.ui \
+    historictransaction.ui
 
 CONFIG += mobility
 MOBILITY = 
@@ -45,4 +55,7 @@ DISTFILES += \
     images/ufsc-logo2.png
 
 QMAKE_CXXFLAGS += -std=gnu++11
+
+RESOURCES += \
+    images.qrc
 
