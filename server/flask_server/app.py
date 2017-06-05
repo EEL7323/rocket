@@ -4,9 +4,10 @@ import psycopg2
 
 #defines of database
 hostnm = 'localhost'
-usernm = 'mfrata'
-passwd = 'sudofrata'
+usernm = 'ufsc'
+passwd = 'sudoufsc'
 db     = 'rocket_server'
+user_section = None
 
 app = Flask(__name__)
 
@@ -40,7 +41,8 @@ def login():
 	    print atribute
     if name == username and _passwd == password:
         redirect_page = 'search.html'
-        atribute = username
+        user_section = username
+        atribute = user_section
     else:
         redirect_page = 'error.html'
 	if atribute == None:
@@ -88,7 +90,12 @@ def updateCredit():
 
 @app.route('/returnToSearch')
 def returnToSearch():
-    return render_template('search.html')
+    return render_template('search.html', atribute=user_section)
+
+@app.route('/logout')
+def logout():
+    user_section = None
+    return render_template('index.html')
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80, debug=True)
