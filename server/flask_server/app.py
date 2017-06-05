@@ -41,8 +41,8 @@ def login():
 	    print atribute
     if name == username and _passwd == password:
         redirect_page = 'search.html'
-        user_section = username
-        atribute = user_section
+        global user_section = username
+        atribute = global user_section
     else:
         redirect_page = 'error.html'
 	if atribute == None:
