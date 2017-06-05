@@ -33,8 +33,8 @@ uart::uart(uint16_t p_baseAddress, uint16_t p_baudRate): uartPort((p_baseAddress
      */
 	switch(baudRate){
 	case 9600:
-		clockPrescaler = 109;
-		secondModReg   = 0;
+		clockPrescaler = 416;
+		secondModReg   = 6;
 		break;
 	case 19200:
 	    clockPrescaler = 208;
@@ -57,7 +57,8 @@ uart::uart(uint16_t p_baseAddress, uint16_t p_baudRate): uartPort((p_baseAddress
 		secondModReg   = 6;
 	}
 
-	HWREG16(baseAddress + OFS_UCAxBRW) = clockPrescaler + (secondModReg << 8);
+	HWREG16(baseAddress + OFS_UCAxBRW) = clockPrescaler;
+	HWREG16(baseAddress + OFS_UCAxMCTL) =  secondModReg << 1;
 	HWREG8(baseAddress + OFS_UCAxCTL1) = UCSSEL_2;
 
 	//config interrupts mostly will be rx
