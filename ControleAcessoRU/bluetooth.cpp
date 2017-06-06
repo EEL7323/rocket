@@ -1,6 +1,8 @@
 #include "bluetooth.h"
 #include <QDebug>
 
+static const QLatin1String serviceUuid("00001101-0000-1000-8000-00805F9B34FB");
+
 /*
  * Constructor.
  * Responsible to create a bluetooth socket and connect some slots.
@@ -35,16 +37,22 @@ void Bluetooth::deviceDiscovered(const QBluetoothDeviceInfo &device) {
     QString address = device.address().toString();
     qDebug() << "Found new device:" << device.name() << '(' << address << ')';
     if (address == bluetoothAddress) {
+        qDebug() << "Board found!";
         discoveryAgent->stop();
 
         // Pair devices
         QBluetoothLocalDevice *dev = new QBluetoothLocalDevice(localAdapters.at(0).address());
-        dev->requestPairing(device.address(), dev->pairingStatus(localAdapters.at(0).address()));
+        if(!dev->pairingStatus(device.address())) {
+            qDebug() << "Pairing...";
+            dev->requestPairing(device.address(), QBluetoothLocalDevice::Paired);
+        } else {
+            qDebug() << "Device already paired.";
+        }
 
         QBluetoothServiceInfo m_service;
         m_service.setDevice(device);
         // connect
-        socket->connectToService(m_service);
+        socket->connectToService(device.address(), QBluetoothUuid(serviceUuid));
     }
 }
 
@@ -61,17 +69,23 @@ void Bluetooth::sendMessage(const QString &message) {
  * This function is responsible to read data throught bluetooth
  * from the board.
  */
-void Bluetooth::readSocket() {
+bool Bluetooth::readSocket() {
     if (!socket)
-        return;
+        return false;
 
+    QByteArray line;
     while (socket->canReadLine()) {
-        QByteArray line = socket->readLine();
+        line = socket->readLine();
     }
+    if(line.at(0) == '1')
+        return true;
+    else
+        return false;
 }
 
 void Bluetooth::connected() {
     qDebug() << "ConnectToService done";
+    connectionStatus = true;
 }
 
 bool Bluetooth::getConnectionStatus() {

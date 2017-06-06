@@ -17,9 +17,8 @@ public:
     ~Recharge();
 
 private slots:
-    void on_recharge_pressed();
-
-    void on_pushButton_pressed();
+    void on_recharge_clicked();
+    void on_pushButton_clicked();
 
 private:
     QString registration;

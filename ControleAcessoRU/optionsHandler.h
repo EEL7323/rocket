@@ -19,10 +19,10 @@ public:
     ~OptionsHandler();
 
 private slots:
-    void on_recharge_pressed();
-    void on_historicTransaction_pressed();
-    void on_accessRequest_pressed();
-    void on_outRequest_pressed();
+    void on_recharge_clicked();
+    void on_historicTransaction_clicked();
+    void on_accessRequest_clicked();
+    void on_outRequest_clicked();
 
 public slots:
 

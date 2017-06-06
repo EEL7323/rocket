@@ -16,7 +16,7 @@ Recharge::~Recharge() {
  * account. After this, a connection with the server is
  * established and the value passed by the user updates the database.
  */
-void Recharge::on_recharge_pressed() {
+void Recharge::on_recharge_clicked() {
     ServerSocket testConnection;
     testConnection.connectToServer();
     if(testConnection.getStatus()) {
@@ -28,7 +28,7 @@ void Recharge::on_recharge_pressed() {
     }
 }
 
-void Recharge::on_pushButton_pressed() {
+void Recharge::on_pushButton_clicked() {
     QString val = ui->lineEdit->text();
     double credit = val.toDouble();
     credit *= 1.5;

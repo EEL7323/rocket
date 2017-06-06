@@ -21,13 +21,13 @@ public:
 private slots:
     void deviceDiscovered(const QBluetoothDeviceInfo &device);
     void connected();
-    void readSocket();
 
 public slots:
     void sendMessage(const QString &message);
+    bool readSocket();
 
 private:
-    QString bluetoothAddress = "60:BE:B5:8C:66:C7"; // Board bluetooth address
+    QString bluetoothAddress = "20:13:07:29:14:44"; // Board bluetooth address
     QBluetoothSocket *socket;
     QList<QBluetoothHostInfo> localAdapters;
     QBluetoothDeviceDiscoveryAgent *discoveryAgent;

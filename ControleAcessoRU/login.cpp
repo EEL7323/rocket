@@ -6,9 +6,8 @@
 
 Login::Login(QWidget *parent) : QDialog(parent), ui(new Ui::Login) {
     ui->setupUi(this);
-    connect(ui->inserirMatButton, SIGNAL(pressed()), this, SLOT(on_inserirMatButton_pressed()));
+    connect(ui->inserirMatButton, SIGNAL(clicked()), this, SLOT(on_inserirMatButton_pressed()));
 
-    // fazer teste sem usar ponteiro
     bluetoothConnection = new Bluetooth(this);
     bluetoothConnection->startDiscovery();
 }
@@ -23,17 +22,10 @@ Login::~Login() {
  * with the board is realized and the registration is sent.
  */
 bool Login::registrationValidation(QString reg) {
-    if(reg == "1")
-        return true;
-    else
-        return false;
-    /*
-    if(bluetoothConnection->getConnectionStatus()) {
-        bluetoothConnection->sendMessage("06"); // this code means that a write request is beeing sent
-        bluetoothConnection->sendMessage(reg);
-        bluetoothConnection->readSocket(); // read OK response and number of students using RU
-    }
-    */
+    bluetoothConnection->sendMessage("0"); // this code means that a write request is beeing sent
+    bluetoothConnection->sendMessage(reg);
+    // return bluetoothConnection->readSocket(); // read OK response and number of students using RU
+    return true;
 }
 
 /*
@@ -43,14 +35,18 @@ bool Login::registrationValidation(QString reg) {
  * new funcionalities are showed. Otherwise, a error message
  * is showed.
  */
-void Login::on_inserirMatButton_pressed() {
+void Login::on_inserirMatButton_clicked() {
     registration = ui->lineEdit->text();
     qDebug() << registration;
-    if(registrationValidation(registration)) {
-        OptionsHandler *secondWindow = new OptionsHandler(this, registration);
-        secondWindow->adjustSize();
-        secondWindow->showMaximized();
+    if(bluetoothConnection->getConnectionStatus()) {
+        if(registrationValidation(registration)) {
+            OptionsHandler *secondWindow = new OptionsHandler(this, registration);
+            secondWindow->adjustSize();
+            secondWindow->showMaximized();
+        } else {
+            ui->lineEdit->setText("Matrícula inválida!");
+        }
     } else {
-        ui->lineEdit->setText("Matrícula inválida!");
+        ui->lineEdit->setText("Aguarde conexão com a catraca!");
     }
 }

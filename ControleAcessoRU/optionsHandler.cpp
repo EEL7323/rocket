@@ -17,7 +17,7 @@ OptionsHandler::~OptionsHandler() {
  * In case of a recharge request, the user is redirect to
  * another window.
  */
-void OptionsHandler::on_recharge_pressed() {
+void OptionsHandler::on_recharge_clicked() {
     Recharge *rechargeWindow = new Recharge(this, registration);
     rechargeWindow->adjustSize();
     rechargeWindow->showMaximized();
@@ -29,7 +29,7 @@ void OptionsHandler::on_recharge_pressed() {
  * If the connection was realized with success, the data read
  * from the server is showed for the user in another window.
  */
-void OptionsHandler::on_historicTransaction_pressed() {
+void OptionsHandler::on_historicTransaction_clicked() {
     ServerSocket testConnection;
     testConnection.connectToServer();
     if(testConnection.getStatus()) {
@@ -48,7 +48,7 @@ void OptionsHandler::on_historicTransaction_pressed() {
  * establish a connection whit the board using bluetooth.
  * A new code is asked for unlock the turnstile.
  */
-void OptionsHandler::on_accessRequest_pressed() {
+void OptionsHandler::on_accessRequest_clicked() {
 
 }
 
@@ -57,6 +57,6 @@ void OptionsHandler::on_accessRequest_pressed() {
  * establish a connection whit the board using bluetooth.
  * A new code is asked for unlock the turnstile.
  */
-void OptionsHandler::on_outRequest_pressed() {
+void OptionsHandler::on_outRequest_clicked() {
 
 }

@@ -24,7 +24,7 @@ public:
     bool registrationValidation(QString reg);
 
 private slots:
-    void on_inserirMatButton_pressed();
+    void on_inserirMatButton_clicked();
 
 private:
     QString registration;
