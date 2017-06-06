@@ -3,11 +3,12 @@
 char receive_buffer[MAX_BUFFER_LENGTH];
 int users_inside = 0;
 int cred = 10;
-short uartdata, i;
+short uartdata, i;  
+int tamanho;
 //std::string registry_str;  // creating an obj
 //std::string str2 = "14101328"; // test const
 String registry_str;  // creating an obj
-String str2 = "14101328"; // test const
+String str2 = "123"; // test const
 String uartString;
 int access_free = 0;
 void Bluetooth::initBluetooth(int baud_rate){
@@ -16,34 +17,31 @@ void Bluetooth::initBluetooth(int baud_rate){
 
 short Bluetooth::receiveData(){  
   while(Serial.available() <=0 );
-	uartdata = Serial.read();
+  uartString = Serial.readString();
+  char cmd = uartString.charAt(0);
+	uartdata = (short)(cmd)-48;
 	switch(uartdata){
-		case REGISTRY:	
-			i = 0;
-     Serial.println("\n Please insert your registry");
-			while(Serial.available() <=0 );
-		//	while(uartdata != '\n'){
-	//			receive_buffer[i] = (char)(uartdata);		// get registry 
-		//		registry_str.concat(uartdata);	// concatenates chars 
-   //  Serial.println("ta lendo");
-		//	}
-
-    uartString = Serial.readString();
-   	i = 0;
-    if(uartString.equals(str2)){  
-        Serial.println(uartString);
+		case 0:	
+      Serial.println("deuuu");
+     // uartString = Serial.readString();
+      tamanho = uartString.length();
+		//	while(Serial.available() <=0 );  
+			uartString.remove(tamanho-1,1);
+      uartString.remove(0,2);
+      Serial.println(uartString);
+      
+      if(uartString.equals(str2)){
         access_free = 1;
-		//	if(str2 == registry_str){
-				if(users_inside> MAX_RU_CAPACITY) 
-					Serial.println("Max Capacity Reached");
-				else {
-					Serial.println("Registry OK");
-					Serial.println("Users Inside: ");
-					Serial.println(users_inside);
-				}
+        Serial.write("1\n");
+				if(users_inside >= MAX_RU_CAPACITY)
+            Serial.println("Max RU Capacity Reached");
+				else 
+				    Serial.println("Users Inside " +users_inside);
 			}
-			else
-				Serial.println("Registry not found");
+			else {
+          Serial.println("0");
+				   Serial.println("Registry not found");
+			}   
 			
 		break;
 		
@@ -57,7 +55,6 @@ short Bluetooth::receiveData(){
 				label: 
 				Serial.println("Captcha" + captcha);
 				while(Serial.available() <=0 );
-      // while(Serial.read()!= "\n")
 				String captcha_verify = Serial.readString();
 				if (captcha_verify.equals(captcha)){
           Serial.println("abriu catraca");
