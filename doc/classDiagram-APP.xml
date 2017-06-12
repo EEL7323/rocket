@@ -1,26 +1,69 @@
-<diagram program="umletino" version="14.2"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>120</x><y>90</y><w>210</w><h>140</h></coordinates><panel_attributes>Login
+<diagram program="umletino" version="14.2"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>120</x><y>20</y><w>210</w><h>150</h></coordinates><panel_attributes>Login
 --
 
 - registration
+- bluetoothConnection
 
 --
 
 + registrationValidation()
 + on_enterButton_pressed()
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>440</x><y>90</y><w>210</w><h>140</h></coordinates><panel_attributes>OptionsHandler
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>440</x><y>20</y><w>210</w><h>150</h></coordinates><panel_attributes>OptionsHandler
 --
 
 --
 
 + getTransactionHistoric()
 + on_accessRequest_pressed()
-+ on_exitRequest_pressed()
-+ on_rechargeCredit_pressed()
-+ on_transactionHistoric_pressed()
++ on_outRequest_pressed()
++ on_recharge_pressed()
++ on_historicTransaction_pressed()
 
 
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>290</x><y>350</y><w>210</w><h>140</h></coordinates><panel_attributes>TransitionRequest
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>130</x><y>410</y><w>210</w><h>250</h></coordinates><panel_attributes>Bluetooth
+--
+
+- bluetoothAddress
+- socket
+- connectionStatus
+- localAdapters
+- discoveryAgent
+
+--
+
++ startDiscovery()
++ deviceDiscovered()
++ connected()
++ readSocket()
++ sendMessage()
++ getConnectionStatus()
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>320</x><y>80</y><w>140</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;120;10</additional_attributes></element><element><id>Relation</id><coordinates><x>330</x><y>80</y><w>130</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>110;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>280</x><y>160</y><w>220</w><h>100</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;80;200;10</additional_attributes></element><element><id>Relation</id><coordinates><x>520</x><y>160</y><w>30</w><h>100</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;80;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>440</x><y>240</y><w>210</w><h>140</h></coordinates><panel_attributes>Recharge
+--
+
+- registration
+
+--
+
++ on_recharge_pressed()
++ on_okButton_pressed()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>710</x><y>240</y><w>210</w><h>140</h></coordinates><panel_attributes>HistoricTransaction
+--
+
+--
+
++ showData()</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>600</x><y>160</y><w>200</w><h>100</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>180;80;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>70</x><y>140</y><w>80</w><h>410</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>60;390;10;390;10;10;50;10</additional_attributes></element><element><id>Relation</id><coordinates><x>590</x><y>370</y><w>100</w><h>80</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>80;60;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>710</x><y>370</y><w>100</w><h>80</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;60;80;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>590</x><y>430</y><w>210</w><h>160</h></coordinates><panel_attributes>ServerSocket
+--
+
+- serverConnected
+
+--
+
++ connectToServer()
++ updateCredit()
++ requestHistoricTransaction()
++ getStatus()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>130</x><y>240</y><w>210</w><h>140</h></coordinates><panel_attributes>Transition
 --
 
 - codeGenerated
@@ -29,14 +72,4 @@
 --
 
 + sendOpenCommand()
-+ on_openTurnstile_pressed()
-
-
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>570</x><y>350</y><w>210</w><h>140</h></coordinates><panel_attributes>RechargeCredit
---
-
-- rechargeValue
-
---
-
-+ sendServerRequest()</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>320</x><y>150</y><w>130</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;110;10</additional_attributes></element><element><id>Relation</id><coordinates><x>330</x><y>150</y><w>130</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>110;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>400</x><y>220</y><w>160</w><h>150</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;130;140;10</additional_attributes></element><element><id>Relation</id><coordinates><x>540</x><y>220</y><w>140</w><h>150</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>120;130;10;10</additional_attributes></element></diagram>
++ on_openTurnstile_pressed()</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>220</x><y>370</y><w>30</w><h>60</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;40;10;10</additional_attributes></element></diagram>
