@@ -18,6 +18,8 @@ class uart{
 private:
 	uint16_t baudRate;
 	uint16_t baseAddress;
+	static uint32_t UCA0RxBuffer;
+	static uint32_t UCA1RxBuffer;
 	port uartPort;
 	void PM_UCA1(void);
 
