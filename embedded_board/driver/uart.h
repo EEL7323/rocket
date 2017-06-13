@@ -27,7 +27,7 @@ public:
 	uart(uint16_t p_baseAddress, uint16_t p_baudRate);
 	~uart();
 	void transmit(uint8_t *data);
-	static uint8_t receive_USCI_A0(void);
+	static uint32_t receive_USCI_A0(void);
 	static uint8_t receive_USCI_A1(void);
 	static interrupt void USCI_A0_ISR(void);
 	static interrupt void USCI_A1_ISR(void);

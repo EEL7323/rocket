@@ -80,8 +80,10 @@ void uart::transmit(uint8_t *transmitData)
 }
 
 
-uint8_t uart::receive_USCI_A0(void){
-    return UCA0RXBUF;
+uint32_t uart::receive_USCI_A0(void){
+	uint32_t aux = UCA0RxBuffer;
+	UCA0RxBuffer = 0;
+    return aux;
 }
 
 uint8_t uart::receive_USCI_A1(void){
@@ -124,7 +126,7 @@ __interrupt void uart::USCI_A0_ISR(void)
     {
     //Vector 2 - RXIFG
     case 2:
-        UCA0RxBuffer = (UCA0RxBuffer << 8) | receive_USCI_A0();
+        UCA0RxBuffer = (UCA0RxBuffer << 8) | UCA0RXBUF;
     default:
     	break;
     }
