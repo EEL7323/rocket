@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Layout>
+	<Files>
+		<File Name="main.cpp" Top="Yes" Tabpos="1" TopLine="1">
+			<Cursor Line="17" Column="24"/>
+		</File>
+		<File Name="student.h" Top="No" Tabpos="2" TopLine="30">
+			<Cursor Line="61" Column="3"/>
+		</File>
+		<File Name="list.h" Top="No" Tabpos="3" TopLine="27">
+			<Cursor Line="89" Column="22"/>
+		</File>
+	</Files>
+</Layout>
