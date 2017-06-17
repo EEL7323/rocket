@@ -1,24 +1,23 @@
-#include <iostream>
+#include <msp430.h>
 #include "list.h"
 #include "student.h"
 
 
 int main()
 {
-	string auxstr;
+    WDTCTL = WDTPW | WDTHOLD;   // Stop watchdog timer
+
 	Student* bruno;
 	List<Student*> test;
-	
+
 	bruno = new Student();
-	cout << "Nome: ";
-    cin >> auxstr;
-    bruno->setName(auxstr);
+    bruno->setName("Bruno");
     bruno->setRegistration("14101328");
     bruno->setCred(10);
-    bruno->showAllinfo();
-    
+
 	test.pushFinal(bruno);
-	test.showAllElements();
+
+	while(1);
 
     return 0;       
 }

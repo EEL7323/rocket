@@ -1,51 +1,44 @@
 #include <string>
+#include "student.h"
+using namespace std;
 
-
-class Student
+Student::Student()
 {
-	private:
-		string name;
-		string registration;
-		int cred;
-	public:
-		Student()
-		{
-			name = "";
-			registration = "";
-			cred = 0;
-		}
-		~Student(){	
-		}
-	
-		void setName(string s)
-		{
-			name = s;
-		}
-		
-		void setRegistration(string s)
-		{
-			registration = s;
-		}
-		
-		void setCred(int c)
-		{
-			cred = c;
-		}
-		
-		string getName()
-		{
-			return name;
-		}
-		
-		string getRegistration()
-		{
-			return registration;
-		}
-		
-		int getCred()
-		{
-			return cred;
-		}
+    name = "";
+    registration = "";
+    cred = 0;
+}
+Student::~Student(){
+}
+
+void Student::setName(string s)
+{
+    name = s;
+}
+
+void Student::setRegistration(string s)
+{
+    registration = s;
+}
+
+void Student::setCred(int c)
+{
+    cred = c;
+}
+
+string Student::getName()
+{
+    return name;
+}
+
+string Student::getRegistration()
+{
+    return registration;
+}
+
+int Student::getCred()
+{
+    return cred;
 }
 
 
