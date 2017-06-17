@@ -32,14 +32,14 @@
 
 /**** BASE ADDRESSES ****/
 
-#define P1 (__MSP430_BASEADDRESS_PORTA_R__)
-#define P2 (__MSP430_BASEADDRESS_PORTA_R__ + 0x01)
-#define P3 (__MSP430_BASEADDRESS_PORTB_R__)
-#define P4 (__MSP430_BASEADDRESS_PORTB_R__ + 0x01)
-#define P5 (__MSP430_BASEADDRESS_PORTC_R__)
-#define P6 (__MSP430_BASEADDRESS_PORTC_R__ + 0x01)
-#define P7 (__MSP430_BASEADDRESS_PORTD_R__)
-#define P8 (__MSP430_BASEADDRESS_PORTD_R__ + 0x01)
+#define P1_address (__MSP430_BASEADDRESS_PORTA_R__)
+#define P2_address (__MSP430_BASEADDRESS_PORTA_R__ + 0x01)
+#define P3_address (__MSP430_BASEADDRESS_PORTB_R__)
+#define P4_address (__MSP430_BASEADDRESS_PORTB_R__ + 0x01)
+#define P5_address (__MSP430_BASEADDRESS_PORTC_R__)
+#define P6_address (__MSP430_BASEADDRESS_PORTC_R__ + 0x01)
+#define P7_address (__MSP430_BASEADDRESS_PORTD_R__)
+#define P8_address (__MSP430_BASEADDRESS_PORTD_R__ + 0x01)
 
 /**** REGISTER OFFSET ****/
 
@@ -49,12 +49,20 @@
 #define pullup_enable_offset 0x06
 #define drive_strength_offset 0x08
 #define function_selection_offset 0x0A
+#define interrupt_vector_word_offset 0x0E
+#define interrupt_edge_select_offset 0x18
+#define interrupt_enable_offset 0x1A
+#define interrupt_flag_offset 0x1C
 
 /**** PORT DIRECTION ****/
 
 #define input 0
 #define output 1
 
+/**** EXTERNAL INTERRUPT EDGES ****/
+
+#define rising 0
+#define falling 1
 
 /****************************************************************/
 /* UART DEFINITIONS                                             */
