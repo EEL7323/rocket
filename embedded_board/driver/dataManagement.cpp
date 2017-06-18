@@ -17,8 +17,8 @@ bool dataManagement::hasEnoughCredit(uint8_t ID){
         return false;
 }
 
-void dataManagement::insertInRU(uint8_t ID){
-
+void dataManagement::insertInRU(Student* new_student){
+    peopleInRU.pushFinal(new_student);
 }
 
 void dataManagement::removeFromRU(uint8_t ID){

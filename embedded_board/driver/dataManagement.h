@@ -18,7 +18,7 @@ public:
     bool hasEnoughCredit(uint8_t ID);
     void insertInRegisteredPeopleList(Student* new_student);
     void removeFromRegisteredPeopleList(Student* student);
-    void insertInRU(uint8_t ID);
+    void insertInRU(Student* new_student);
     void removeFromRU(uint8_t ID);
 };
 
