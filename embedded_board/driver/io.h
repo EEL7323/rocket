@@ -23,6 +23,10 @@ private:
     volatile uint16_t* pullup_enable_register_address;
     volatile uint16_t* drive_strength_register_address;
     volatile uint16_t* function_selection_register_address;
+    volatile uint16_t* interrupt_vector_word_register_address;
+    volatile uint16_t* interrupt_edge_select_register_address;
+    volatile uint16_t* interrupt_enable_register_address;
+    volatile uint16_t* interrupt_flag_register_address;
     volatile uint8_t base_address_shift;    // this is necessary for odd addresses as the MSP430 is only word accessible
 
 public:
@@ -38,6 +42,10 @@ public:
     void clearPinDriveStrength(uint8_t pin);
     void setPinFunctionSelection(uint8_t pin);
     void clearPinFunctionSelection(uint8_t pin);
+    void setInterruptEdge(uint8_t pin, uint8_t edge);
+    void clearInterruptFlag(uint8_t flag);
+    void enableInterrupt(uint8_t pin);
+    void disableInterrupt(uint8_t pin);
 };
 
 

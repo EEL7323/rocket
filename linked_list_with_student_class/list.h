@@ -1,7 +1,7 @@
 #ifndef _LIST_H_
 #define _LIST_H_
+#include <cstddef>
 
-#include <iostream>
 using namespace std;
 
 
@@ -53,23 +53,6 @@ class List
 		virtual ~List()
 		{
 			delete head;
-		}
-		
-		void showAllElements()
-		{
-			cout << "\n Show all Elements \n";
-			Node<T>* c = head;
-			if(emptyList())
-				cout << "List is empty\n";
-			else 
-			{
-				while (c)
-				{
-					cout << c->getValue() << endl;
-					c = c->getNext();
-				}
-				cout << endl;	
-			}
 		}
 			
 			

@@ -19,6 +19,10 @@ port::port(uint16_t address){
     pullup_enable_register_address = (volatile uint16_t*) (base_address + pullup_enable_offset);
     drive_strength_register_address = (volatile uint16_t*) (base_address + drive_strength_offset);
     function_selection_register_address = (volatile uint16_t*) (base_address + function_selection_offset);
+    interrupt_vector_word_register_address  = (volatile uint16_t*) (base_address + interrupt_vector_word_offset);
+    interrupt_edge_select_register_address  = (volatile uint16_t*) (base_address + interrupt_edge_select_offset);
+    interrupt_enable_register_address  = (volatile uint16_t*) (base_address + interrupt_enable_offset);
+    interrupt_flag_register_address  = (volatile uint16_t*) (base_address + interrupt_flag_offset);
 }
 
 port::~port(){
@@ -69,4 +73,23 @@ void port::setPinFunctionSelection(uint8_t pin){
 
 void port::clearPinFunctionSelection(uint8_t pin){
     *function_selection_register_address &= ~(pin << base_address_shift);
+}
+
+void port::setInterruptEdge(uint8_t pin, uint8_t edge){
+    if(edge == rising)
+        *interrupt_edge_select_register_address &= ~(pin << base_address_shift);
+    else
+        *interrupt_edge_select_register_address |= pin << base_address_shift;
+}
+
+void port::clearInterruptFlag(uint8_t flag){
+    *interrupt_flag_register_address &= ~(flag << base_address_shift);
+}
+
+void port::enableInterrupt(uint8_t pin){
+    *interrupt_enable_register_address |= pin << base_address_shift;
+}
+
+void port::disableInterrupt(uint8_t pin){
+    *interrupt_enable_register_address &= ~(pin << base_address_shift);
 }
