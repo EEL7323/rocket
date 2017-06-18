@@ -16,6 +16,7 @@ public:
     dataManagement();
     ~dataManagement();
     bool hasEnoughCredit(uint8_t ID);
+    void subtractCredit(uint8_t ID);
     void insertInRegisteredPeopleList(Student* new_student);
     void removeFromRegisteredPeopleList(Student* student);
     void insertInRU(Student* new_student);

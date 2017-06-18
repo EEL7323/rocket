@@ -17,6 +17,12 @@ bool dataManagement::hasEnoughCredit(uint8_t ID){
         return false;
 }
 
+void dataManagement::subtractCredit(uint8_t ID){
+    char ID_str[2];
+    sprintf(ID_str, "%d", ID);
+    registeredPeopleList.decreaseRegCred(ID_str);
+}
+
 void dataManagement::insertInRU(Student* new_student){
     peopleInRU.pushFinal(new_student);
 }
