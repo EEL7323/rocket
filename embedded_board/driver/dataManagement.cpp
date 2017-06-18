@@ -9,7 +9,12 @@ dataManagement::~dataManagement(){
 }
 
 bool dataManagement::hasEnoughCredit(uint8_t ID){
-
+    char ID_str[2];
+    sprintf(ID_str, "%d", ID);
+    if(registeredPeopleList.getRegCred(ID_str) > 0)
+        return true;
+    else
+        return false;
 }
 
 void dataManagement::insertInRU(uint8_t ID){
@@ -18,4 +23,11 @@ void dataManagement::insertInRU(uint8_t ID){
 
 void dataManagement::removeFromRU(uint8_t ID){
 
+}
+
+void dataManagement::insertInRegisteredPeopleList(Student* new_student){
+    registeredPeopleList.pushFinal(new_student);
+}
+
+void dataManagement::removeFromRegisteredPeopleList(Student* student){
 }
