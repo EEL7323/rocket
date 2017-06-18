@@ -5,7 +5,12 @@
 
 int main()
 {
+<<<<<<< Updated upstream
 	std::string auxstr, str;
+=======
+    WDTCTL = WDTPW | WDTHOLD;   // Stop watchdog timer
+    volatile bool var;
+>>>>>>> Stashed changes
 	Student* bruno;
 	List<Student*> test,jo;
 	int i;
@@ -14,6 +19,7 @@ int main()
     cin >> auxstr;
     
 	bruno = new Student();
+<<<<<<< Updated upstream
     bruno->setName(auxstr);
     bruno->setRegistration("14101328");
   
@@ -39,5 +45,15 @@ int main()
 		cout<<"\n";
 	}
 	else cout<<"LISTA VAZIa";
+=======
+    bruno->setName("Bruno");
+    bruno->setRegistration("5");
+    bruno->setCred(10);
+    test.pushFinal(bruno);
+    var = test.existElement(bruno);
+
+	while(1);
+
+>>>>>>> Stashed changes
     return 0;       
 };
