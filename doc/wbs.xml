@@ -1,0 +1,71 @@
+<diagram program="umletino" version="14.2"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>620</x><y>200</y><w>180</w><h>80</h></coordinates><panel_attributes>valign=center
+halign=center
+RU System Access</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>300</x><y>350</y><w>170</w><h>50</h></coordinates><panel_attributes>valign=center
+halign=center
+Planning </panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>520</x><y>350</y><w>170</w><h>50</h></coordinates><panel_attributes>valign=center
+halign=center
+Implementation</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>750</x><y>350</y><w>170</w><h>50</h></coordinates><panel_attributes>valign=center
+halign=center
+Testing</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>370</x><y>310</y><w>690</w><h>30</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;10;670;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1030</x><y>310</y><w>30</w><h>60</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;40;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>810</x><y>310</y><w>30</w><h>60</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;40;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>590</x><y>310</y><w>30</w><h>60</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;40;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>370</x><y>310</y><w>30</w><h>60</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;40;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>700</x><y>270</y><w>30</w><h>70</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>300</x><y>390</y><w>30</w><h>420</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;400;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>520</x><y>390</y><w>30</w><h>420</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;400;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>750</x><y>390</y><w>30</w><h>270</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;250;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>960</x><y>390</y><w>30</w><h>220</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;200;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>960</x><y>350</y><w>170</w><h>50</h></coordinates><panel_attributes>valign=center
+halign=center
+Documentation</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>340</x><y>570</y><w>130</w><h>30</h></coordinates><panel_attributes>valign=center
+halign=center
+Server Definition</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>300</x><y>430</y><w>60</w><h>30</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>40;10;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>340</x><y>420</y><w>130</w><h>30</h></coordinates><panel_attributes>valign=center
+halign=center
+Project Understanding</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>340</x><y>470</y><w>130</w><h>30</h></coordinates><panel_attributes>valign=center
+halign=center
+Embedded Board
+Definition</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>340</x><y>520</y><w>130</w><h>30</h></coordinates><panel_attributes>valign=center
+halign=center
+Data Structure 
+Definition</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>340</x><y>620</y><w>130</w><h>30</h></coordinates><panel_attributes>valign=center
+halign=center
+Interfaces Definition</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>340</x><y>670</y><w>130</w><h>30</h></coordinates><panel_attributes>valign=center
+halign=center
+Tools Definition</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>300</x><y>480</y><w>60</w><h>30</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>40;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>300</x><y>530</y><w>60</w><h>30</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>40;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>300</x><y>580</y><w>60</w><h>30</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>40;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>300</x><y>630</y><w>60</w><h>30</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>40;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>300</x><y>680</y><w>60</w><h>30</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>40;10;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>560</x><y>420</y><w>130</w><h>30</h></coordinates><panel_attributes>valign=center
+halign=center
+Embedded Board 
+Drivers</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>560</x><y>470</y><w>130</w><h>30</h></coordinates><panel_attributes>valign=center
+halign=center
+Embedded Board 
+Data Structure</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>560</x><y>520</y><w>130</w><h>30</h></coordinates><panel_attributes>valign=center
+halign=center
+Embedded Board 
+Interfaces</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>560</x><y>570</y><w>130</w><h>30</h></coordinates><panel_attributes>valign=center
+halign=center
+Server
+Interfaces</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>560</x><y>620</y><w>130</w><h>30</h></coordinates><panel_attributes>valign=center
+halign=center
+Server
+Database</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>560</x><y>670</y><w>130</w><h>30</h></coordinates><panel_attributes>valign=center
+halign=center
+Server
+Webpage</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>560</x><y>720</y><w>130</w><h>30</h></coordinates><panel_attributes>valign=center
+halign=center
+APP
+User interface</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>560</x><y>770</y><w>130</w><h>30</h></coordinates><panel_attributes>valign=center
+halign=center
+APP
+Interfaces</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>340</x><y>720</y><w>130</w><h>30</h></coordinates><panel_attributes>valign=center
+halign=center
+Sequence Diagrams</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>340</x><y>770</y><w>130</w><h>30</h></coordinates><panel_attributes>valign=center
+halign=center
+Use Case Diagrams</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>300</x><y>730</y><w>60</w><h>30</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>40;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>300</x><y>780</y><w>60</w><h>30</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>40;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>520</x><y>780</y><w>60</w><h>30</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>40;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>520</x><y>730</y><w>60</w><h>30</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>40;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>520</x><y>680</y><w>60</w><h>30</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>40;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>520</x><y>630</y><w>60</w><h>30</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>40;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>520</x><y>580</y><w>60</w><h>30</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>40;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>520</x><y>530</y><w>60</w><h>30</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>40;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>520</x><y>430</y><w>60</w><h>30</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>40;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>520</x><y>480</y><w>60</w><h>30</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>40;10;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>790</x><y>420</y><w>130</w><h>30</h></coordinates><panel_attributes>valign=center
+halign=center
+Embedded Board </panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>790</x><y>470</y><w>130</w><h>30</h></coordinates><panel_attributes>valign=center
+halign=center
+APP</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>790</x><y>520</y><w>130</w><h>30</h></coordinates><panel_attributes>valign=center
+halign=center
+Server</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>790</x><y>570</y><w>130</w><h>30</h></coordinates><panel_attributes>valign=center
+halign=center
+Interfaces</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>790</x><y>620</y><w>130</w><h>30</h></coordinates><panel_attributes>valign=center
+halign=center
+System</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>750</x><y>430</y><w>60</w><h>30</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>40;10;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1000</x><y>420</y><w>130</w><h>30</h></coordinates><panel_attributes>valign=center
+halign=center
+Code</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1000</x><y>470</y><w>130</w><h>30</h></coordinates><panel_attributes>valign=center
+halign=center
+Modules</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1000</x><y>520</y><w>130</w><h>30</h></coordinates><panel_attributes>valign=center
+halign=center
+Testing</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1000</x><y>570</y><w>130</w><h>30</h></coordinates><panel_attributes>valign=center
+halign=center
+System</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>960</x><y>580</y><w>60</w><h>30</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>40;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>960</x><y>530</y><w>60</w><h>30</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>40;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>960</x><y>480</y><w>60</w><h>30</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>40;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>960</x><y>430</y><w>60</w><h>30</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>40;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>750</x><y>480</y><w>60</w><h>30</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>40;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>750</x><y>530</y><w>60</w><h>30</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>40;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>750</x><y>580</y><w>60</w><h>30</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>40;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>750</x><y>630</y><w>60</w><h>30</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>40;10;10;10</additional_attributes></element></diagram>
