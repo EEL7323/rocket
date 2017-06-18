@@ -1,7 +1,8 @@
 #ifndef _LIST_H_
 #define _LIST_H_
-#include <cstddef>
 
+#include <iostream>
+#include "student.h"
 using namespace std;
 
 
@@ -54,7 +55,23 @@ class List
 		{
 			delete head;
 		}
-			
+		
+		void showAllElements()
+		{
+			cout << "\n Show all Elements \n";
+			Node<T>* c = head;
+			if(emptyList())
+				cout << "List is empty\n";
+			else 
+			{
+				while (c)
+				{
+					cout << c->getValue() << endl;
+					c = c->getNext();
+				}
+				cout << endl;	
+			}
+		}
 			
 		bool emptyList()			// show if list is empty
 		{
@@ -98,17 +115,6 @@ class List
 			while(c);
 			return size;
 		}
-		bool existElement(T v)
-		{
-			Node<T>* c = head;
-			while(c)
-			{
-				if(c->getValue() == v)
-					return true;
-				c = c->getNext();	
-			}
-			return false;
-		}
 		
 		void popBack()		// removes from the last
 		{
@@ -137,6 +143,80 @@ class List
 					delete previous_prev->getNext();
 					previous_prev->setNext(NULL);
 					tail = previous_prev;
+				}
+			}
+		}
+		bool existElement(T v)
+		{
+			if(emptyList())
+				return 0;
+			Node<T>* c = head;
+			while(c)
+			{
+				if(c->getValue() == v)
+					return true;
+				c = c->getNext();	
+			}
+			return false;
+		}
+		
+		std::string retElement(T v)
+		{	
+			if(emptyList())
+				return 0;
+			Node<T>* c = head;
+			while(c)
+			{
+				if(c->getValue() == v)
+					return (c->getValue()->getName());
+				c = c->getNext();	
+			}
+		//	return false;
+		}
+	
+		int getRegCred(std::string v)
+		{	
+			if(emptyList())
+				return 0;
+			std::string str;
+			Node<T>* c = head;
+			while(c)
+			{
+				str = c->getValue()->getRegistration();
+				if(str==v)
+					return (c->getValue()->getCred());
+				c = c->getNext();
+			}
+		}
+		void decreaseRegCred(std::string v)
+		{	if(emptyList());
+			else{
+				std::string str;
+				Node<T>* c = head;
+				while(c)
+				{
+					str = c->getValue()->getRegistration();
+					if(str==v)
+						c->getValue()->decreaseCred();
+					c = c->getNext();
+				}
+			}
+		}
+		void setRegCred(std::string v, int cred)
+		{	
+			if(emptyList());
+			else{
+				std::string str;
+				Node<T>* c = head;
+				while(c)
+				{
+					str = c->getValue()->getRegistration();
+					if(str==v)
+					{
+						c->getValue()->setCred(cred);
+						break;
+					}
+					c = c->getNext();
 				}
 			}
 		}
