@@ -5,24 +5,41 @@
 
 int main()
 {
-<<<<<<< Updated upstream
 	std::string auxstr, str;
-=======
-    WDTCTL = WDTPW | WDTHOLD;   // Stop watchdog timer
-    volatile bool var;
->>>>>>> Stashed changes
-	Student* bruno;
-	List<Student*> test,jo;
+	Student *bruno, *elco, *frata;
+	List<Student*> test;
 	int i;
 	
-	cout << "Nome: ";
-    cin >> auxstr;
+//	cout << "Nome: ";
+  //  cin >> auxstr;
     
 	bruno = new Student();
-<<<<<<< Updated upstream
-    bruno->setName(auxstr);
+   // bruno->setName(auxstr);
+    bruno->setName("Bruno");
     bruno->setRegistration("14101328");
-  
+    test.pushFinal(bruno);
+    
+    elco = new Student();
+    elco->setName("Elco");
+    elco->setRegistration("14106067");
+ 	test.pushFinal(elco);
+ 	
+	frata = new Student();
+    frata->setName("Frata");
+    frata->setRegistration("14200025");
+ 	test.pushFinal(frata);   
+    
+ 	test.showAllElements();
+		 
+    int n = test.getPosition("14106067");
+	cout << n;
+	
+	cout << "\n Deletando o elco\n";
+	test.deleteStudent(elco);
+	
+ 	test.showAllElements();
+    
+  /*
 	test.pushFinal(bruno);
 	if(test.existElement(bruno)){ // existElement verifica se o aluno ta na lista
 		cout<<"Lista com nego\n";
@@ -45,15 +62,8 @@ int main()
 		cout<<"\n";
 	}
 	else cout<<"LISTA VAZIa";
-=======
-    bruno->setName("Bruno");
-    bruno->setRegistration("5");
-    bruno->setCred(10);
-    test.pushFinal(bruno);
-    var = test.existElement(bruno);
-
-	while(1);
-
->>>>>>> Stashed changes
+	*/
+	
+	
     return 0;       
 };

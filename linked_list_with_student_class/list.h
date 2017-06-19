@@ -1,14 +1,14 @@
 #ifndef _LIST_H_
 #define _LIST_H_
 
-//#include <iostream>
+#include <iostream>
 #include "student.h"
 using namespace std;
 
 
 template<class T>
 class Node
-{
+{   
 	private:
 		T v;
 		Node* next;
@@ -59,6 +59,7 @@ class List
 		void showAllElements()
 		{
 			cout << "\n Show all Elements \n";
+			std::string str;
 			Node<T>* c = head;
 			if(emptyList())
 				cout << "List is empty\n";
@@ -66,11 +67,13 @@ class List
 			{
 				while (c)
 				{
-					cout << c->getValue() << endl;
+					str = c->getValue()->getRegistration();
+					cout << str << "\n";
 					c = c->getNext();
 				}
 				cout << endl;	
-			}
+			}	
+			
 		}
 			
 		bool emptyList()			// show if list is empty
@@ -160,7 +163,15 @@ class List
 			return false;
 		}
 		
-		std::string retElement(T v)
+		T retStudent(T v)
+		{
+			if(existElement(v))
+				return v;
+			else 
+				return 0;	
+		}
+		
+		std::string retElement(T v)  // return student's name 
 		{	
 			if(emptyList())
 				return 0;
@@ -174,6 +185,77 @@ class List
 		//	return false;
 		}
 	
+		
+		int getPosition(std::string v)
+		{	
+			if(emptyList())
+				return 0;
+			std::string str;
+			Node<T>* c = head;
+			int n=0;
+			while(c)
+			{
+				str = c->getValue()->getRegistration();
+				n++;
+				if(str==v)
+					return n;
+				c = c->getNext();
+			}
+		}
+		
+		T getElement(std::string v)
+		{	
+			if(emptyList())
+				return 0;
+			std::string str;
+			Node<T>* c = head;
+			while(c)
+			{
+				str = c->getValue()->getRegistration();
+				if(str==v)
+					return c->getValue();
+				c = c->getNext();
+			}
+		}
+		
+		void deleteStudent(T val)
+		{	
+			if(emptyList())
+				return;
+			Node<T> *pPre = NULL, *pDel = NULL;
+    
+		    /* Check whether it is the head node?
+		     if it is, delete and update the head node */
+		    if (head->getValue() == val) {
+		        /* point to the node to be deleted */
+		        pDel = head;
+		        /* update */
+		        head = pDel->getNext();
+		        delete pDel;
+		        return;
+		    }
+		    pPre = head;
+		    pDel = head->getNext();
+		    
+		    /* traverse the list and check the value of each node */
+		    while (pDel != NULL) {
+		        if (pDel->getValue() == val) {
+		            /* Update the list */
+		            pPre->setNext(pDel->getNext());
+		            pPre = pDel;
+		            /* If it is the last node, update the tail */
+		            if (pDel == tail) {
+		                tail = pPre;
+		            }
+		            delete pDel; /* Here only remove the first node with the given value */
+		            break; /* break and return */
+		        }
+		        pPre = pDel;
+		        pDel = pDel->getNext();
+		    }
+		}
+		
+		
 		int getRegCred(std::string v)
 		{	
 			if(emptyList())
@@ -187,7 +269,6 @@ class List
 					return (c->getValue()->getCred());
 				c = c->getNext();
 			}
-			return -1;
 		}
 		void decreaseRegCred(std::string v)
 		{	if(emptyList());
@@ -205,7 +286,8 @@ class List
 		}
 		void setRegCred(std::string v, int cred)
 		{	
-			if(emptyList());
+			if(emptyList())
+				return;
 			else{
 				std::string str;
 				Node<T>* c = head;
@@ -221,6 +303,47 @@ class List
 				}
 			}
 		}
+		
+		void changeRegInside(std::string v)
+		{
+			if(emptyList())
+				return;
+			else{
+				std::string str;
+				Node<T>* c = head;
+				while(c)
+				{
+					str = c->getValue()->getRegistration();
+					if(str==v)
+					{
+						c->getValue()->changeInside();
+						break;
+					}
+					c = c->getNext();
+				}
+			}
+		}
+		
+		bool getRegInside(std::string v)
+		{
+			if(emptyList())
+				return;
+			else{
+				std::string str;
+				Node<T>* c = head;
+				while(c)
+				{
+					str = c->getValue()->getRegistration();
+					if(str==v)
+					{
+						c->getValue()->getInside();
+						break;
+					}
+					c = c->getNext();
+				}
+			}
+		}
+		
 	
 };
 

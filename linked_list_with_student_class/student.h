@@ -8,6 +8,7 @@ class Student
 		std::string name;
 		std::string registration;
 		int cred;
+		bool inside;
 	public:
 		Student()
 		{
@@ -32,6 +33,10 @@ class Student
 		{
 			cred = c;
 		}
+		void changeInside()
+		{
+			inside = ~inside;
+		}
 		
 		std::string getName()
 		{
@@ -51,14 +56,11 @@ class Student
 		{
 			cred--;
 		}
-/*		
-		void showAllinfo()
+		bool getInside()
 		{
-			cout << "\n Name: " << name << endl;
-			cout << "\n Registration: " << registration << endl;
-			cout << "\n Credit: " << cred << endl;
+			return inside;
 		}
-		*/
+
 };
 
 
