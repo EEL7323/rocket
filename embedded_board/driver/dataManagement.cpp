@@ -1,7 +1,7 @@
 #include "dataManagement.h"
 
 dataManagement::dataManagement(){
-
+	totalPeopleInRU = 0;
 }
 
 dataManagement::~dataManagement(){
@@ -36,4 +36,12 @@ void dataManagement::insertInRegisteredPeopleList(Student* new_student){
 }
 
 void dataManagement::removeFromRegisteredPeopleList(Student* student){
+}
+
+void dataManagement::increaseTotalPeopleInRU(void){
+	totalPeopleInRU++;
+}
+
+void dataManagement::decreaseTotalPeopleInRU(void){
+	totalPeopleInRU--;
 }

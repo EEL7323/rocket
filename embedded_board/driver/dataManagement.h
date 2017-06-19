@@ -11,6 +11,7 @@ class dataManagement{
 private:
     List<Student*> registeredPeopleList;
     List<Student*> peopleInRU;
+    uint8_t totalPeopleInRU;
 
 public:
     dataManagement();
@@ -21,6 +22,8 @@ public:
     void removeFromRegisteredPeopleList(Student* student);
     void insertInRU(Student* new_student);
     void removeFromRU(uint8_t ID);
+    void increaseTotalPeopleInRU(void);
+    void decreaseTotalPeopleInRU(void);
 };
 
 
