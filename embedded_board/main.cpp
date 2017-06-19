@@ -1,14 +1,37 @@
 #include <msp430.h> 
 #include "io.h"
+#include "dataManagement.h"
+#include "accessHandler.h"
+#include "student.h"
 
 /*
  * main.c
  */
 uint8_t ID = 0;
 
+
+dataManagement RUManager;
+accessHandler RUAccessHandler;
+
 int main(void)
 {
   WDTCTL = WDTPW + WDTHOLD;                 // Stop watchdog timer
+
+  Student* aux1;
+  Student* aux2;
+  aux1 = new Student();
+  aux2 = new Student();
+  aux1->setRegistration("01");
+  aux1->setCred(0);
+  aux2->setRegistration("02");
+  aux2->setCred(2);
+
+
+  RUManager.insertInRegisteredPeopleList(aux1);
+  RUManager.insertInRegisteredPeopleList(aux2);
+
+  delete aux1;
+  delete aux2;
 
   port P2(P2_address);
   P2.setPinPullup(BIT1);
@@ -24,6 +47,7 @@ int main(void)
   P1.clearInterruptFlag(BIT1);
   P1.enableInterrupt(BIT1);
 
+
   __bis_SR_register(GIE);       // Enter LPM4 w/interrupt
   while(1);
 }
@@ -32,6 +56,7 @@ int main(void)
 __interrupt void Port_2(void)
 {
   ID++;
+  RUAccessHandler.accessRequestHandler(ID, RUManager);
   if(ID == 11)
       ID = 0;
   P2IFG &= ~BIT1;

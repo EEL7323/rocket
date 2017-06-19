@@ -1,7 +1,7 @@
 #ifndef _LIST_H_
 #define _LIST_H_
 
-#include <iostream>
+//#include <iostream>
 #include "student.h"
 using namespace std;
 
@@ -187,6 +187,7 @@ class List
 					return (c->getValue()->getCred());
 				c = c->getNext();
 			}
+			return -1;
 		}
 		void decreaseRegCred(std::string v)
 		{	if(emptyList());
