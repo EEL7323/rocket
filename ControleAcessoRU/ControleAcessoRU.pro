@@ -28,7 +28,6 @@ SOURCES += main.cpp\
     optionsHandler.cpp \
     bluetooth.cpp \
     recharge.cpp \
-    historictransaction.cpp \
     transition.cpp \
     info.cpp
 
@@ -37,7 +36,6 @@ HEADERS  += \
     optionsHandler.h \
     bluetooth.h \
     recharge.h \
-    historictransaction.h \
     transition.h \
     info.h
 
@@ -45,7 +43,6 @@ FORMS    += \
     login.ui \
     optionsHandler.ui \
     recharge.ui \
-    historictransaction.ui \
     transition.ui \
     info.ui
 

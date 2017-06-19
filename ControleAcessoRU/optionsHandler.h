@@ -21,7 +21,6 @@ public:
 
 private slots:
     void on_recharge_clicked();
-    void on_historicTransaction_clicked();
     void on_accessRequest_clicked();
     void on_outRequest_clicked();
 

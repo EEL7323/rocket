@@ -171,15 +171,7 @@
       </spacer>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_7">
-       <item>
-        <widget class="QPushButton" name="historicTransaction">
-         <property name="text">
-          <string>Histórico de transações</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      <layout class="QHBoxLayout" name="horizontalLayout_7"/>
      </item>
     </layout>
    </item>
