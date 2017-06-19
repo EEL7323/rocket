@@ -10,14 +10,14 @@ dataManagement::~dataManagement(){
 
 bool dataManagement::hasEnoughCredit(uint8_t ID){
     char* ID_str;
-    ID_str = (char*) malloc(2);
+    ID_str = new char;
     sprintf(ID_str, "%2.2d", ID);
     if(registeredPeopleList.getRegCred(ID_str) > 0){
-    	free(ID_str);
+    	delete ID_str;
         return true;
     }
     else{
-    	free(ID_str);
+    	delete ID_str;
         return false;
     }
 
@@ -25,10 +25,10 @@ bool dataManagement::hasEnoughCredit(uint8_t ID){
 
 void dataManagement::subtractCredit(uint8_t ID){
     char* ID_str;
-    ID_str = (char*) malloc(2);
+    ID_str = new char;
     sprintf(ID_str, "%2.2d", ID);
     registeredPeopleList.decreaseRegCred(ID_str);
-    free(ID_str);
+    delete ID_str;
 }
 
 void dataManagement::insertInRU(Student* new_student){

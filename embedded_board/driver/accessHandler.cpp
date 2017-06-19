@@ -34,7 +34,7 @@ bool accessHandler::accessRequestHandler(uint8_t request_ID, dataManagement &man
 void accessHandler::leaveRequestHandler(uint8_t request_ID, dataManagement &manager){
 	manager.removeFromRU(request_ID);
 	manager.decreaseTotalPeopleInRU();
-	closeTurnstile();
+	openTurnstile();
 }
 
 void accessHandler::openTurnstile(void){

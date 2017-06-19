@@ -8,6 +8,7 @@
  * main.c
  */
 uint8_t ID = 0;
+bool app_flag = false;
 
 
 dataManagement RUManager;
@@ -56,6 +57,7 @@ int main(void)
 __interrupt void Port_2(void)
 {
   ID++;
+  app_flag = false;
   RUAccessHandler.accessRequestHandler(ID, RUManager);
   if(ID == 11)
       ID = 0;
@@ -65,5 +67,6 @@ __interrupt void Port_2(void)
 #pragma vector=PORT1_VECTOR
 __interrupt void Port_1(void)
 {
+	app_flag = true;
   __no_operation();
 }
