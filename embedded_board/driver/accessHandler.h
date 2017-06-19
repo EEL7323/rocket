@@ -15,6 +15,7 @@ public:
     accessHandler();
     ~accessHandler();
     bool accessRequestHandler(uint8_t request_ID, dataManagement &manager);
+    void leaveRequestHandler(uint8_t request_ID, dataManagement &manager);
     void openTurnstile(void);
     void closeTurnstile(void);
 };

@@ -18,6 +18,11 @@ bool accessHandler::accessRequestHandler(uint8_t request_ID, dataManagement &man
     return true;
 }
 
+void accessHandler::leaveRequestHandler(uint8_t request_ID, dataManagement &manager){
+	manager.removeFromRU(request_ID);
+	closeTurnstile();
+}
+
 void accessHandler::openTurnstile(void){
     P1.clearPin(BIT0);
     P4.setPin(BIT7);
