@@ -2,6 +2,7 @@
 #include "ui_login.h"
 #include "bluetooth.h"
 #include "optionsHandler.h"
+#include "info.h"
 #include <QDebug>
 
 Login::Login(QWidget *parent) : QDialog(parent), ui(new Ui::Login) {
@@ -24,8 +25,21 @@ Login::~Login() {
 bool Login::registrationValidation(QString reg) {
     bluetoothConnection->sendMessage("0"); // this code means that a write request is beeing sent
     bluetoothConnection->sendMessage(reg);
-    // return bluetoothConnection->readSocket(); // read OK response and number of students using RU
-    return true;
+
+    QByteArray response;
+    response = bluetoothConnection->readSocket(); // read OK response and number of students using RU
+
+    qDebug() << "Response: " << response;
+
+    if(response.startsWith("1")) {
+        int size = response.size();
+        usersInside = response.left(size - 1);
+        usersInside = usersInside.right(usersInside.size() - 1);
+        qDebug() << "Users inside: " << usersInside;
+        return true;
+    } else {
+        return false;
+    }
 }
 
 /*
@@ -40,7 +54,7 @@ void Login::on_inserirMatButton_clicked() {
     qDebug() << registration;
     if(bluetoothConnection->getConnectionStatus()) {
         if(registrationValidation(registration)) {
-            OptionsHandler *secondWindow = new OptionsHandler(this, registration);
+            OptionsHandler *secondWindow = new OptionsHandler(this, registration, bluetoothConnection, usersInside);
             secondWindow->adjustSize();
             secondWindow->showMaximized();
         } else {
@@ -49,4 +63,10 @@ void Login::on_inserirMatButton_clicked() {
     } else {
         ui->lineEdit->setText("Aguarde conexão com a catraca!");
     }
+}
+
+void Login::on_pushButton_clicked() {
+    Info *infoWindow = new Info(this);
+    infoWindow->adjustSize();
+    infoWindow->showMaximized();
 }

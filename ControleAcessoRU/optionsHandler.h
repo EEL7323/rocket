@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QDialog>
 #include "login.h"
+#include "bluetooth.h"
 
 // This class handle the user actions on the second window
 
@@ -15,7 +16,7 @@ class OptionsHandler : public QDialog {
     Q_OBJECT
 
 public:
-    explicit OptionsHandler(QWidget *parent = 0, QString reg = 0);
+    explicit OptionsHandler(QWidget *parent = 0, QString reg = 0, Bluetooth *connection = 0, QByteArray users = 0);
     ~OptionsHandler();
 
 private slots:
@@ -28,6 +29,7 @@ public slots:
 
 private:
     QString registration;
+    Bluetooth *bluetoothConnection;
     Ui::OptionsHandler *ui;
 };
 

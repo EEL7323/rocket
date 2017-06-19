@@ -1,10 +1,10 @@
 #include "recharge.h"
 #include "ui_recharge.h"
-#include "serversocket.h"
 
-Recharge::Recharge(QWidget *parent, QString reg) : QDialog(parent), ui(new Ui::Recharge) {
+Recharge::Recharge(QWidget *parent, QString reg, Bluetooth *connection) : QDialog(parent), ui(new Ui::Recharge) {
     ui->setupUi(this);
     registration = reg;
+    bluetoothConnection = connection;
 }
 
 Recharge::~Recharge() {
@@ -13,23 +13,24 @@ Recharge::~Recharge() {
 
 /*
  * The user will insert the value to be recharged in his
- * account. After this, a connection with the server is
- * established and the value passed by the user updates the database.
+ * account. After this, the value is sent to the board
+ * through bluetooth.
  */
 void Recharge::on_recharge_clicked() {
-    ServerSocket testConnection;
-    testConnection.connectToServer();
-    if(testConnection.getStatus()) {
-        ui->statusArea->append("Conexão com servidor estabelecida.");
-        testConnection.updateCredit(registration, ui->lineEdit->text());
+    bluetoothConnection->sendMessage("3"); // this code means that a recharge request is beeing sent
+    bluetoothConnection->sendMessage(registration);
+    QString rechargeValue = ui->credit->text();
+    bluetoothConnection->sendMessage(rechargeValue);
+    QByteArray requestReturn = bluetoothConnection->readSocket();
+    if(requestReturn.startsWith("1")) {
         ui->statusArea->append("Créditos atualizados com sucesso.");
     } else {
-        ui->statusArea->append("Não foi possível conectar ao servidor. Tente novamente.");
+        ui->statusArea->append("Não foi possível recarregar.");
     }
 }
 
 void Recharge::on_pushButton_clicked() {
-    QString val = ui->lineEdit->text();
+    QString val = ui->credit->text();
     double credit = val.toDouble();
     credit *= 1.5;
     ui->rechargePrice->setText(QString("%1").arg(credit));

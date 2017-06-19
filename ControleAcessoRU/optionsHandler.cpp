@@ -1,12 +1,15 @@
 #include "optionsHandler.h"
 #include "ui_optionsHandler.h"
 #include "historictransaction.h"
-#include "serversocket.h"
 #include "recharge.h"
+#include "transition.h"
 
-OptionsHandler::OptionsHandler(QWidget *parent, QString reg) : QDialog(parent), ui(new Ui::OptionsHandler) {
+OptionsHandler::OptionsHandler(QWidget *parent, QString reg, Bluetooth *connection, QByteArray users) : QDialog(parent), ui(new Ui::OptionsHandler) {
     ui->setupUi(this);
     registration = reg;
+    bluetoothConnection = connection;
+    QString displayValue(users);
+    ui->lcdNumber->display(displayValue);
 }
 
 OptionsHandler::~OptionsHandler() {
@@ -18,45 +21,44 @@ OptionsHandler::~OptionsHandler() {
  * another window.
  */
 void OptionsHandler::on_recharge_clicked() {
-    Recharge *rechargeWindow = new Recharge(this, registration);
+    Recharge *rechargeWindow = new Recharge(this, registration, bluetoothConnection);
     rechargeWindow->adjustSize();
     rechargeWindow->showMaximized();
 }
 
 /*
- * In case of an historic transaction request, a new object of
- * ServerSocket class is created and connected to the server.
- * If the connection was realized with success, the data read
- * from the server is showed for the user in another window.
+ * In case of a historic transaction request, a new write and
+ * data request are sent to the board through bluetooth to get
+ * the values.
  */
 void OptionsHandler::on_historicTransaction_clicked() {
-    ServerSocket testConnection;
-    testConnection.connectToServer();
-    if(testConnection.getStatus()) {
-        testConnection.requestHistoricTransaction(registration);
-        HistoricTransaction *historicWindow = new HistoricTransaction(this);
-        historicWindow->adjustSize();
-        historicWindow->showMaximized();
-        historicWindow->showData();
-    } else {
-        qDebug() << "Not connected to server.";
-    }
+    bluetoothConnection->sendMessage("4"); // this code means that a write request is beeing sent
+    bluetoothConnection->sendMessage(registration);
+    QByteArray value = bluetoothConnection->readSocket(); // read historic transaction
+
+    HistoricTransaction *historicWindow = new HistoricTransaction(this, value);
+    historicWindow->adjustSize();
+    historicWindow->showMaximized();
 }
 
 /*
- * In case of a request for access, this function
- * establish a connection whit the board using bluetooth.
- * A new code is asked for unlock the turnstile.
+ * In case of an access request, the user is redirect to
+ * another window.
  */
 void OptionsHandler::on_accessRequest_clicked() {
-
+    QString id = "1"; // this id means that a access request was made
+    Transition *transitionWindow = new Transition(this, registration, bluetoothConnection, id);
+    transitionWindow->adjustSize();
+    transitionWindow->showMaximized();
 }
 
 /*
- * In case of a request for leave RU, this function
- * establish a connection whit the board using bluetooth.
- * A new code is asked for unlock the turnstile.
+ * In case of a leave request, the user is redirect to
+ * another window.
  */
 void OptionsHandler::on_outRequest_clicked() {
-
+    QString id = "0"; // this id means that a access request was made
+    Transition *transitionWindow = new Transition(this, registration, bluetoothConnection, id);
+    transitionWindow->adjustSize();
+    transitionWindow->showMaximized();
 }

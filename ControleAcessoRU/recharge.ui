@@ -27,7 +27,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QLineEdit" name="lineEdit"/>
+    <widget class="QLineEdit" name="credit"/>
    </item>
    <item>
     <widget class="QPushButton" name="pushButton">
@@ -63,7 +63,7 @@
    <item>
     <widget class="QLabel" name="label_2">
      <property name="text">
-      <string>O valor inserido refere-se ao número de passes que você deseja recarregar.</string>
+      <string>O valor inserido refere-se ao número de passes.</string>
      </property>
     </widget>
    </item>

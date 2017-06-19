@@ -25,11 +25,12 @@ public:
 
 private slots:
     void on_inserirMatButton_clicked();
+    void on_pushButton_clicked();
 
 private:
     QString registration;
-    Bluetooth *bluetoothConnection; // fazer teste sem usar ponteiro
-
+    QByteArray usersInside;
+    Bluetooth *bluetoothConnection;
     Ui::Login *ui;
 };
 

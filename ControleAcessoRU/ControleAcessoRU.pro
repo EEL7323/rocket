@@ -27,23 +27,27 @@ SOURCES += main.cpp\
     login.cpp \
     optionsHandler.cpp \
     bluetooth.cpp \
-    serversocket.cpp \
     recharge.cpp \
-    historictransaction.cpp
+    historictransaction.cpp \
+    transition.cpp \
+    info.cpp
 
 HEADERS  += \
     login.h \
     optionsHandler.h \
     bluetooth.h \
-    serversocket.h \
     recharge.h \
-    historictransaction.h
+    historictransaction.h \
+    transition.h \
+    info.h
 
 FORMS    += \
     login.ui \
     optionsHandler.ui \
     recharge.ui \
-    historictransaction.ui
+    historictransaction.ui \
+    transition.ui \
+    info.ui
 
 CONFIG += mobility
 MOBILITY = 

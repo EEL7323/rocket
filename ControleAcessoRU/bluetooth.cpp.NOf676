@@ -69,24 +69,24 @@ void Bluetooth::sendMessage(const QString &message) {
  * This function is responsible to read data throught bluetooth
  * from the board.
  */
-QByteArray Bluetooth::readSocket() {
-    // stay in a loop while the readyRead event isn't emitted
+char* Bluetooth::readSocket() {
+    char buf[1024];
+    // socket->waitForReadyRead(10000);
+    // socket->readLine(buf, sizeof(buf));
+
+    //QTimer timer;
+    //timer.setSingleShot(true);
     QEventLoop loop;
-    connect(socket, SIGNAL(readyRead()), &loop, SLOT(quit()));
+    connect(socket, SIGNAL(readyRead()), &loop, SLOT(readyRead()));
+    //connect(&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
+    //timer.start(msTimeout);
     loop.exec();
 
-    socket->waitForReadyRead(-1);
+    QByteArray ds;
+    ds = socket->readLine(ds.size());
+    qDebug() << "Buffer: " << ds;
 
-    QByteArray buf;
-    buf = socket->readAll();
-
-    if(!buf.contains("\n")) {
-        connect(socket, SIGNAL(readyRead()), &loop, SLOT(quit()));
-        loop.exec();
-        buf.append(socket->readAll());
-    }
-
-    qDebug() << "Buffer: " << buf;
+    // qDebug() << "Buffer: " << buf;
     return buf;
 }
 
@@ -97,8 +97,13 @@ void Bluetooth::connected() {
 
 void Bluetooth::readyRead() {
     qDebug() << "Ready to read";
+    canRead = true;
 }
 
 bool Bluetooth::getConnectionStatus() {
     return connectionStatus;
+}
+
+bool Bluetooth::getReadyRead() {
+    return canRead;
 }
