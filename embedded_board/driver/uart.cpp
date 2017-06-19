@@ -8,6 +8,8 @@
 
 #include "uart.h"
 
+	uint32_t uart::UCA0RxBuffer = 0;
+
 uart::uart(uint16_t p_baseAddress, uint16_t p_baudRate): uartPort((p_baseAddress == USCI_A0_BASE)? P3 : P4){
 
     //port configurations
@@ -62,7 +64,7 @@ uart::uart(uint16_t p_baseAddress, uint16_t p_baudRate): uartPort((p_baseAddress
 	HWREG8(baseAddress + OFS_UCAxCTL1) = UCSSEL_2;
 
 	//config interrupts mostly will be rx
-//	HWREG8(baseAddress + OFS_UCAxIE) = UCRXIE;
+	HWREG8(baseAddress + OFS_UCAxIE) = UCRXIE;
 
 	//Enable the State Machine
 	HWREG8(baseAddress + OFS_UCAxCTL1) &= ~(UCSWRST);
@@ -78,8 +80,10 @@ void uart::transmit(uint8_t *transmitData)
 }
 
 
-uint8_t uart::receive_USCI_A0(void){
-    return UCA0RXBUF;
+uint32_t uart::receive_USCI_A0(void){
+	uint32_t aux = UCA0RxBuffer;
+	UCA0RxBuffer = 0;
+    return aux;
 }
 
 uint8_t uart::receive_USCI_A1(void){
@@ -118,12 +122,11 @@ void uart::PM_UCA1(void) {
 #pragma vector=USCI_A0_VECTOR
 __interrupt void uart::USCI_A0_ISR(void)
 {
-    volatile uint8_t data;
     switch(__even_in_range(UCA0IV,4))
     {
     //Vector 2 - RXIFG
     case 2:
-        data = receive_USCI_A0();
+        UCA0RxBuffer = (UCA0RxBuffer << 8) | UCA0RXBUF;
     default:
     	break;
     }

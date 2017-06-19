@@ -14,12 +14,13 @@ void serverCommunication::sendData(uint8_t* data){
 	UCA0.transmit(data);
 }
 
-uint8_t serverCommunication::readCredit(uint8_t ID){
+uint32_t serverCommunication::readCredit(uint8_t ID){
 
 	char string[2];
 	sendData((uint8_t*)read_command);
 	sprintf(string, "%2.2d", ID);
 	sendData((uint8_t*)string);
+	__delay_cycles(800000);
 	return (UCA0.receive_USCI_A0());
 
 }
