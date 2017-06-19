@@ -13,13 +13,23 @@ bool accessHandler::accessRequestHandler(uint8_t request_ID, dataManagement &man
     }
 
     manager.subtractCredit(request_ID);
-    manager.insertInRU();
+
+    Student* aux;
+    aux = new Student();
+    char aux_str[2];
+    sprintf(aux_str, "%d", request_ID);
+    aux->setRegistration(aux_str);
+
+    manager.insertInRU(aux);
+    delete aux;
+    manager.increaseTotalPeopleInRU();
     openTurnstile();
     return true;
 }
 
 void accessHandler::leaveRequestHandler(uint8_t request_ID, dataManagement &manager){
 	manager.removeFromRU(request_ID);
+	manager.decreaseTotalPeopleInRU();
 	closeTurnstile();
 }
 

@@ -21,7 +21,6 @@ uint32_t serverCommunication::readCredit(uint8_t ID){
 	sprintf(string, "%2.2d", ID);
 	sendData((uint8_t*)string);
 	__delay_cycles(800000);
-//	__delay_cycles(400000);
 	return (UCA0.receive_USCI_A0());
 
 }
