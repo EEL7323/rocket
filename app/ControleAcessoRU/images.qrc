@@ -1,6 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>images/ufsc-logo.png</file>
-        <file>images/ufsc-logo2.png</file>
-    </qresource>
-</RCC>
