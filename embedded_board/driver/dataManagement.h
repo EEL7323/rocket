@@ -24,6 +24,7 @@ public:
     void removeFromRU(uint8_t ID);
     void increaseTotalPeopleInRU(void);
     void decreaseTotalPeopleInRU(void);
+    Student getFromRegisteredPeopleList(uint8_t ID);
 };
 
 

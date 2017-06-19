@@ -53,3 +53,14 @@ void dataManagement::increaseTotalPeopleInRU(void){
 void dataManagement::decreaseTotalPeopleInRU(void){
 	totalPeopleInRU--;
 }
+
+Student dataManagement::getFromRegisteredPeopleList(uint8_t ID){
+	Student* aux;
+	char* ID_str;
+	ID_str = new char;
+	sprintf(ID_str, "%2.2d", ID);
+	aux = registeredPeopleList.getElement(ID_str);
+	delete ID_str;
+	return *aux;
+
+}
