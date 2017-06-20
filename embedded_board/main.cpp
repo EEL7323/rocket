@@ -3,12 +3,13 @@
 #include "dataManagement.h"
 #include "accessHandler.h"
 #include "student.h"
+#include "captcha.h"
 
 /*
  * main.c
  */
 uint8_t ID = 0;
-bool app_flag = false;
+bool app_flag_test = false;
 
 
 dataManagement RUManager;
@@ -57,8 +58,8 @@ int main(void)
 __interrupt void Port_2(void)
 {
   ID++;
-  app_flag = false;
-  RUAccessHandler.accessRequestHandler(ID, RUManager);
+  app_flag_test = false;
+  RUAccessHandler.accessRequestHandler(ID, RUManager, app_flag_test);
   if(ID == 11)
       ID = 0;
   P2IFG &= ~BIT1;
@@ -67,6 +68,10 @@ __interrupt void Port_2(void)
 #pragma vector=PORT1_VECTOR
 __interrupt void Port_1(void)
 {
-	app_flag = true;
-  __no_operation();
+	ID++;
+	app_flag_test = true;
+	RUAccessHandler.accessRequestHandler(ID, RUManager, app_flag_test);
+	  if(ID == 11)
+	      ID = 0;
+	P1IFG &= ~BIT1;
 }

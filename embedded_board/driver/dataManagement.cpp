@@ -36,7 +36,13 @@ void dataManagement::insertInRU(Student* new_student){
 }
 
 void dataManagement::removeFromRU(uint8_t ID){
-
+	Student* aux;
+	char* ID_str;
+	ID_str = new char;
+	sprintf(ID_str, "%2.2d", ID);
+	aux = peopleInRU.getElement(ID_str);
+	peopleInRU.deleteStudent(aux);
+	delete ID_str;
 }
 
 void dataManagement::insertInRegisteredPeopleList(Student* new_student){
