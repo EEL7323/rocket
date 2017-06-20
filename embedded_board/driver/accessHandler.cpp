@@ -9,21 +9,25 @@ accessHandler::~accessHandler(){
 
 }
 
-bool accessHandler::accessRequestHandler(uint8_t request_ID, dataManagement &manager){
+bool accessHandler::accessRequestHandler(uint8_t request_ID, dataManagement &manager, bool app_flag){
 
     if(manager.hasEnoughCredit(request_ID) == false){
         closeTurnstile();
         return false;
     }
 
+    if(app_flag == true){
+    	uint8_t aux_captcha;
+    	aux_captcha = captchaSystem.getRandomNumber();
+    	__delay_cycles(10*100000);
+    	if (!captchaSystem.verifyCaptcha(aux_captcha))
+    		return false;
+    }
+
     manager.subtractCredit(request_ID);
 
     Student* aux;
     aux = new Student();
-//    char aux_str[2];
-//    sprintf(aux_str, "%d", request_ID);
-//    aux->setRegistration(aux_str);
-
     *aux = manager.getFromRegisteredPeopleList(request_ID);
     manager.insertInRU(aux);
     delete aux;
