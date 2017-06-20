@@ -30,7 +30,7 @@ int main(void)
 
 
   RUManager.insertInRegisteredPeopleList(aux1);
-  RUManager.insertInRegisteredPeopleList(aux2);
+//  RUManager.insertInRegisteredPeopleList(aux2);
 
   delete aux1;
   delete aux2;
@@ -58,6 +58,7 @@ int main(void)
 __interrupt void Port_2(void)
 {
 	RUAccessHandler.leaveRequestHandler(ID, RUManager);
+	P2IFG &= ~BIT1;
 }
 
 #pragma vector=PORT1_VECTOR
