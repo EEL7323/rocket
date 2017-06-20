@@ -24,7 +24,7 @@ int main(void)
   aux1 = new Student();
   aux2 = new Student();
   aux1->setRegistration("01");
-  aux1->setCred(0);
+  aux1->setCred(2);
   aux2->setRegistration("02");
   aux2->setCred(2);
 
@@ -57,12 +57,7 @@ int main(void)
 #pragma vector=PORT2_VECTOR
 __interrupt void Port_2(void)
 {
-  ID++;
-  app_flag_test = false;
-  RUAccessHandler.accessRequestHandler(ID, RUManager, app_flag_test);
-  if(ID == 11)
-      ID = 0;
-  P2IFG &= ~BIT1;
+	RUAccessHandler.leaveRequestHandler(ID, RUManager);
 }
 
 #pragma vector=PORT1_VECTOR
