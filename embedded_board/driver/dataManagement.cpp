@@ -3,6 +3,12 @@
 
 dataManagement::dataManagement(){
 
+	Student* aux;
+	aux = new Student();
+	aux->setRegistration("00");
+	aux->setCred(1);
+	insertInRU(aux);
+	delete aux;
 	totalPeopleInRU = 0;
 }
 
@@ -16,7 +22,8 @@ bool dataManagement::hasEnoughCredit(uint8_t ID){
     char* ID_str;
     ID_str = new char;
     sprintf(ID_str, "%2.2d", ID);
-    if(registeredPeopleList.getRegCred(ID_str) > 0){
+    volatile uint8_t x = registeredPeopleList.getRegCred(ID_str);
+    if(x > 0){
     	delete ID_str;
         return true;
     }
@@ -40,7 +47,6 @@ void dataManagement::subtractCredit(uint8_t ID){
 void dataManagement::insertInRU(Student* new_student){
 
     peopleInRU.pushFinal(new_student);
-
 }
 
 
@@ -48,7 +54,7 @@ void dataManagement::insertInRU(Student* new_student){
 void dataManagement::removeFromRU(uint8_t ID){
 
 	  Student* aux;
-
+	  aux = new Student();
 	  char* ID_str;
 	  ID_str = new char;
 	  sprintf(ID_str, "%2.2d", ID);
@@ -61,7 +67,8 @@ void dataManagement::removeFromRU(uint8_t ID){
 
 void dataManagement::insertInRegisteredPeopleList(Student* new_student){
 
-    registeredPeopleList.pushFinal(new_student);
+    registeredPeopleList.pushFront(new_student);
+    __no_operation();
 }
 
 

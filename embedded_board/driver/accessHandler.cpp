@@ -37,7 +37,6 @@ bool accessHandler::accessRequestHandler(uint8_t request_ID, dataManagement &man
     aux = new Student();
     char aux_str[2];
     sprintf(aux_str, "%d", request_ID);
-    aux->setRegistration(aux_str);
     *aux = manager.getFromRegisteredPeopleList(request_ID);
     manager.insertInRU(aux);
     delete aux;

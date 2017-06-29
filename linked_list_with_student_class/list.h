@@ -212,7 +212,7 @@ class List
 			while(c)
 			{
 				str = c->getValue()->getRegistration();
-				if(str==v)
+				if(str.compare(v) == 0)
 					return c->getValue();
 				c = c->getNext();
 			}
