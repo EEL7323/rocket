@@ -82,6 +82,7 @@ int main(void)
 __interrupt void Port_2(void)
 {
 	RUAccessHandler.leaveRequestHandler(ID, RUManager);
+	P2IFG &= ~BIT1;
 }
 
 #pragma vector=PORT1_VECTOR
