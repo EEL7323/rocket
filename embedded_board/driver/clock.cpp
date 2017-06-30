@@ -7,7 +7,7 @@
 
 #include "clock.h"
 
-clock::clock(void):clockPort(P5){
+clock::clock(void):clockPort(P5_address){
 
     clockPort.setPinFunctionSelection(BIT2);
     clockPort.setPinFunctionSelection(BIT3);

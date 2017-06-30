@@ -10,7 +10,7 @@
 
 	uint32_t uart::UCA0RxBuffer = 0;
 
-uart::uart(uint16_t p_baseAddress, uint16_t p_baudRate): uartPort((p_baseAddress == USCI_A0_BASE)? P3 : P4){
+uart::uart(uint16_t p_baseAddress, uint16_t p_baudRate): uartPort((p_baseAddress == USCI_A0_BASE)? P3_address : P4_address){
 
     //port configurations
     uartPort.setPinFunctionSelection(BIT3);
