@@ -6,6 +6,7 @@
 #include "captcha.h"
 #include "clock.h"
 #include "serverCommunication.h"
+#include "timer.h"
 
 /*
  * main.c
@@ -23,6 +24,7 @@ int main(void)
 
 
     volatile clock Clock;
+    timer TimerA;
     serverCommunication link;
     __enable_interrupt();
 
@@ -44,7 +46,10 @@ int main(void)
 
 
 	__bis_SR_register(GIE);
-	while(1);
+	while(1){
+	    if(TimerA.timerExpired())
+	        link.writeDatabase(RUManager);
+	}
 }
 
 #pragma vector=PORT2_VECTOR
