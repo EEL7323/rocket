@@ -29,6 +29,10 @@ void Recharge::on_recharge_clicked() {
     }
 }
 
+/*
+ * Calculates and prints the price that corresponds to the number of
+ * credits requested by the user.
+ */
 void Recharge::on_pushButton_clicked() {
     QString val = ui->credit->text();
     double credit = val.toDouble();
