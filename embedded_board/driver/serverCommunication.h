@@ -26,6 +26,7 @@ public:
 	uint32_t readCredit(uint8_t ID);
 	void writeCredit(uint8_t ID, uint8_t credit);
 	void readDatabase(dataManagement &manager);
+	void writeDatabase(dataManagement &manager);
 };
 
 

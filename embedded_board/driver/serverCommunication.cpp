@@ -54,3 +54,9 @@ void serverCommunication::readDatabase(dataManagement &manager){
     delete aux_registration;
 }
 
+void serverCommunication::writeDatabase(dataManagement &manager){
+    for(uint8_t i = 1; i < 5; i++){
+        writeCredit(i, (manager.getFromRegisteredPeopleList(i)).getCred());
+    }
+}
+
