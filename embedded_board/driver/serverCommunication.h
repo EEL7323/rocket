@@ -4,10 +4,12 @@
 #include <msp430.h>
 #include <sstream>
 #include "uart.h"
+#include "dataManagement.h"
 
 #define write_command "w"
 #define read_command "r"
 
+#define asciiToInt(x) (x - '0')
 
 class serverCommunication{
 
@@ -23,6 +25,7 @@ public:
 	~serverCommunication();
 	uint32_t readCredit(uint8_t ID);
 	void writeCredit(uint8_t ID, uint8_t credit);
+	void readDatabase(dataManagement &manager);
 };
 
 
