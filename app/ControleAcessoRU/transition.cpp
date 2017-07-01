@@ -12,6 +12,11 @@ Transition::~Transition() {
     delete ui;
 }
 
+/*
+ * That functions sends the captcha value inserted by the user
+ * to the board, witch is responsible to compare this value to
+ * that was generated on the board routine.
+ */
 void Transition::sendOpenCommand() {
     QString captcha = ui->captchaInserted->text();
     bluetoothConnection->sendMessage(captcha); // request to open the turnstile
@@ -24,6 +29,9 @@ void Transition::sendOpenCommand() {
     }
 }
 
+/*
+ * This function requests a new captcha value to the board.
+ */
 void Transition::on_requestCaptcha_clicked() {
     if(identification == "1") {
         bluetoothConnection->sendMessage("1"); // this code means that a access request is beeing sent

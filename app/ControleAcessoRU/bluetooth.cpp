@@ -23,7 +23,7 @@ Bluetooth::Bluetooth(QObject *parent) : QObject(parent) {
 /*
  * This function is responsible to discovery another devices
  * that are available to establish a bluetooth connection.
- * The objective here is discovery the board bluetooth.
+ * The objective here is discovery the bluetooth board.
  */
 void Bluetooth::startDiscovery() {
     discoveryAgent->start();
