@@ -23,6 +23,9 @@ public:
     void increaseTotalPeopleInRU(void);
     void decreaseTotalPeopleInRU(void);
     Student getFromRegisteredPeopleList(uint8_t ID);
+    bool existRegisteredPeopleList(std::string v);
+    uint8_t getPeopleInRu();
+    void rechargeCredit(uint8_t ID, uint8_t cred);
 };
 
 

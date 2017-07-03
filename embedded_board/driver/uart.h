@@ -11,6 +11,7 @@
 #include <msp430.h>
 #include <stdint.h>
 #include "io.h"
+#include <string>
 
 
 class uart{
@@ -19,7 +20,7 @@ private:
 	uint16_t baudRate;
 	volatile uint16_t baseAddress;
 	static uint32_t UCA0RxBuffer;
-	static uint32_t UCA1RxBuffer;
+	static std::string UCA1RxBuffer;
 	port uartPort;
 	void PM_UCA1(void);
 
@@ -31,6 +32,8 @@ public:
 	static uint8_t receive_USCI_A1(void);
 	static interrupt void USCI_A0_ISR(void);
 	static interrupt void USCI_A1_ISR(void);
+	static void clear_A1_string(void);
+	static std::string getBuffer(void);
 };
 
 

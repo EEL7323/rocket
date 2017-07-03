@@ -4,16 +4,18 @@
 #include "accessHandler.h"
 #include "student.h"
 #include "captcha.h"
+#include "bluetooth.h"
 
 /*
  * main.c
  */
 uint8_t ID = 0;
 bool app_flag_test = false;
-
+bool clear_string = false;
 
 dataManagement RUManager;
 accessHandler RUAccessHandler;
+Bluetooth bluetooth;
 
 int main(void)
 {
@@ -51,7 +53,9 @@ int main(void)
 
 
   __bis_SR_register(GIE);       // Enter LPM4 w/interrupt
-  while(1);
+  while(1){
+      bluetooth.receiveData(RUManager);
+      }
 }
 
 #pragma vector=PORT2_VECTOR

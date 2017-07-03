@@ -9,6 +9,7 @@
 #include "uart.h"
 
 	uint32_t uart::UCA0RxBuffer = 0;
+	std::string uart::UCA1RxBuffer;
 
 uart::uart(uint16_t p_baseAddress, uint16_t p_baudRate): uartPort((p_baseAddress == USCI_A0_BASE)? P3_address : P4_address){
 
@@ -70,6 +71,10 @@ uart::uart(uint16_t p_baseAddress, uint16_t p_baudRate): uartPort((p_baseAddress
 	HWREG8(baseAddress + OFS_UCAxCTL1) &= ~(UCSWRST);
 }
 
+uart::~uart(){
+
+}
+
 void uart::transmit(uint8_t *transmitData)
 {
     while(*transmitData != 0)
@@ -88,6 +93,10 @@ uint32_t uart::receive_USCI_A0(void){
 
 uint8_t uart::receive_USCI_A1(void){
     return UCA1RXBUF;
+}
+
+std::string uart::getBuffer(void){
+    return UCA1RxBuffer;
 }
 
 
@@ -110,6 +119,11 @@ void uart::PM_UCA1(void) {
 #ifdef PORT_MAP_EINT
 	__enable_interrupt();                     // Re-enable all interrupts
 #endif
+}
+
+void uart::clear_A1_string(void){
+    UCA1RxBuffer.clear();
+
 }
 
 
@@ -139,7 +153,8 @@ __interrupt void uart::USCI_A1_ISR(void)
     {
     //Vector 2 - RXIFG
     case 2:
-        receive_USCI_A1();
+        UCA1RxBuffer.push_back((char)(receive_USCI_A1()));
+        break;
     default:
     	break;
     }
