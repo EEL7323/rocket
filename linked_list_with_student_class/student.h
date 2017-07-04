@@ -7,7 +7,7 @@ class Student
 	private:
 		std::string name;
 		std::string registration;
-		int cred;
+		unsigned int cred;
 		bool inside;
 	public:
 		Student()

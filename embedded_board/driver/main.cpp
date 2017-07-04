@@ -25,41 +25,12 @@ int main(void)
 {
     WDTCTL = WDTPW + WDTHOLD;                 // Stop watchdog timer
 
-    //watchdog Watchdog;
-
     volatile clock Clock;
     timer TimerA;
     serverCommunication link;
     __enable_interrupt();
 
     link.readDatabase(RUManager);
-
-    /*
-    Student* aux0;
-    Student* aux1;
-    Student* aux2;
-    aux0 = new Student();
-    aux1 = new Student();
-    aux2 = new Student();
-
-
-    aux0->setRegistration("00");
-    aux0->setCred(0);
-    aux1->setRegistration("01");
-    aux1->setCred(5);
-    aux2->setRegistration("02");
-    aux2->setCred(5);
-
-
-    RUManager.insertInRegisteredPeopleList(aux0);
-    RUManager.insertInRegisteredPeopleList(aux1);
-    RUManager.insertInRegisteredPeopleList(aux2);
-
-    delete aux0;
-    delete aux1;
-    delete aux2;
-
-    */
 
     port P2(P2_address);
     P2.setPinPullup(BIT1);
@@ -79,11 +50,8 @@ int main(void)
 
     __bis_SR_register(GIE);       // Enter LPM4 w/interrupt
     while(1){
-        //Watchdog.watchdogResetCounter();
         while(!(UCA1IFG & UCRXIFG)){
         }
-        //if(TimerA.timerExpired())
-            //link.writeDatabase(RUManager);
         bluetooth.receiveData(RUManager, RUAccessHandler);
     }
 }
