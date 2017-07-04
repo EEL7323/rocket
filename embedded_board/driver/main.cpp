@@ -5,6 +5,7 @@
 #include "student.h"
 #include "captcha.h"
 #include "bluetooth.h"
+#include "clock.h"
 
 /*
  * main.c
@@ -14,19 +15,21 @@ bool app_flag_test = false;
 bool clear_string = false;
 
 dataManagement RUManager;
-accessHandler RUAccessHandler;
+//accessHandler RUAccessHandler;
 Bluetooth bluetooth;
 
 int main(void)
 {
   WDTCTL = WDTPW + WDTHOLD;                 // Stop watchdog timer
 
+  clock ClockSystem;
+
   Student* aux1;
   Student* aux2;
   aux1 = new Student();
   aux2 = new Student();
   aux1->setRegistration("01");
-  aux1->setCred(0);
+  aux1->setCred(2);
   aux2->setRegistration("02");
   aux2->setCred(2);
 
@@ -51,10 +54,10 @@ int main(void)
   P1.clearInterruptFlag(BIT1);
   P1.enableInterrupt(BIT1);
 
-
   __bis_SR_register(GIE);       // Enter LPM4 w/interrupt
   while(1){
-      bluetooth.receiveData(RUManager);
+      while(!(UCA1IFG & UCRXIFG));
+          bluetooth.receiveData(RUManager);
       }
 }
 
@@ -63,7 +66,7 @@ __interrupt void Port_2(void)
 {
   ID++;
   app_flag_test = false;
-  RUAccessHandler.accessRequestHandler(ID, RUManager, app_flag_test);
+//  RUAccessHandler.accessRequestHandler(ID, RUManager, app_flag_test);
   if(ID == 11)
       ID = 0;
   P2IFG &= ~BIT1;
@@ -74,7 +77,7 @@ __interrupt void Port_1(void)
 {
 	  ID++;
 	  app_flag_test = true;
-	  RUAccessHandler.accessRequestHandler(ID, RUManager, app_flag_test);
+//	  RUAccessHandler.accessRequestHandler(ID, RUManager, app_flag_test);
 	    if(ID == 11)
 	        ID = 0;
 	  P1IFG &= ~BIT1;

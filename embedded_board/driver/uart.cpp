@@ -13,15 +13,19 @@
 
 uart::uart(uint16_t p_baseAddress, uint16_t p_baudRate): uartPort((p_baseAddress == USCI_A0_BASE)? P3_address : P4_address){
 
+    if(baseAddress == USCI_A1_BASE)
+        PM_UCA1();
+
     //port configurations
     uartPort.setPinFunctionSelection(BIT3);
     uartPort.setPinFunctionSelection(BIT4);
 
+    uartPort.setPinFunctionSelection(BIT4);
+    uartPort.setPinFunctionSelection(BIT5);
+
 	baseAddress = p_baseAddress;
 	baudRate = p_baudRate;
 
-	if(baseAddress == USCI_A1_BASE)
-		PM_UCA1();
 
     //To configurate the UART you must stop the state machine
     HWREG8(baseAddress + OFS_UCAxCTL1) |= UCSWRST;
@@ -149,7 +153,7 @@ __interrupt void uart::USCI_A0_ISR(void)
 #pragma vector=USCI_A1_VECTOR
 __interrupt void uart::USCI_A1_ISR(void)
 {
-    switch(__even_in_range(UCA0IV,4))
+    switch(__even_in_range(UCA1IV,4))
     {
     //Vector 2 - RXIFG
     case 2:
