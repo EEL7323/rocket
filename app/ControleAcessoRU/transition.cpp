@@ -20,7 +20,7 @@ Transition::~Transition() {
 void Transition::sendOpenCommand() {
     QString captcha = ui->captchaInserted->text();
     bluetoothConnection->sendMessage(captcha); // request to open the turnstile
-    bluetoothConnection->sendMessage(registration);
+    // bluetoothConnection->sendMessage(registration);
     QByteArray requestReturn = bluetoothConnection->readSocket();
     if(requestReturn.startsWith("1")) {
         ui->textBrowser->append("Catraca liberada.");
