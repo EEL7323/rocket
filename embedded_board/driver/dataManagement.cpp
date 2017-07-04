@@ -6,8 +6,9 @@ dataManagement::dataManagement(){
     Student* aux;
     aux = new Student();
     aux->setRegistration("00");
-    aux->setCred(1);
-    insertInRU(aux);
+    aux->setCred(0);
+    //insertInRU(aux);
+    insertInRegisteredPeopleList(aux);
     delete aux;
     totalPeopleInRU = 0;
 }
@@ -68,7 +69,6 @@ void dataManagement::removeFromRU(uint8_t ID){
 void dataManagement::insertInRegisteredPeopleList(Student* new_student){
 
     registeredPeopleList.pushFront(new_student);
-    __no_operation();
 }
 
 
@@ -102,9 +102,9 @@ Student dataManagement::getFromRegisteredPeopleList(uint8_t ID){
 }
 
 
-bool dataManagement::existRegisteredPeopleList(std::string v)
+bool dataManagement::existRegisteredPeopleList(std::string var)
 {
-    return  registeredPeopleList.existElementReg(v);
+    return  registeredPeopleList.existElementReg(var);
 }
 
 uint8_t dataManagement::getPeopleInRu(){
@@ -118,4 +118,8 @@ void dataManagement::rechargeCredit(uint8_t ID, uint8_t cred){
     sprintf(ID_str, "%2.2d", ID);
     registeredPeopleList.setRegCred(ID_str, cred);
     delete ID_str;
+}
+
+int dataManagement::getListSize(){
+    return registeredPeopleList.listSize();
 }

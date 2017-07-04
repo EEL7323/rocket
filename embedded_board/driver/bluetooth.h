@@ -8,6 +8,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include "dataManagement.h"
+#include "accessHandler.h"
 
 #define MAX_RU_CAPACITY		999
 #define BAUD_RATE96			9600
@@ -22,7 +23,7 @@ class Bluetooth{
 	public:
 		//Bluetooth();
 		//~Bluetooth();
-		void receiveData(dataManagement &Manager);
+		void receiveData(dataManagement &Manager, accessHandler &Handler);
 		void transmitData(uint8_t* data);
 		void initBluetooth(int baudrate);
 	//	short verifyRegistry(short receivedata);

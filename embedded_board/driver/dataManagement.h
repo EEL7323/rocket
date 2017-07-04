@@ -26,6 +26,7 @@ public:
     bool existRegisteredPeopleList(std::string v);
     uint8_t getPeopleInRu();
     void rechargeCredit(uint8_t ID, uint8_t cred);
+    int getListSize();
 };
 
 

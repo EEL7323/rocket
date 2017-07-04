@@ -9,7 +9,7 @@
 
 watchdog::watchdog(void){
 
-    WDTCTL = WDTPW + WDTSSEL_1 + WDTIS_4;
+    WDTCTL = WDTPW + WDTSSEL_1 + WDTIS_2;
 
 }
 

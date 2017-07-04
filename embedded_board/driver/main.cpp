@@ -8,6 +8,7 @@
 #include "clock.h"
 #include "serverCommunication.h"
 #include "timer.h"
+#include "watchdog.h"
 
 /*
  * main.c
@@ -15,79 +16,96 @@
 uint8_t ID = 0;
 bool app_flag_test = false;
 
+
 dataManagement RUManager;
 accessHandler RUAccessHandler;
 Bluetooth bluetooth;
 
 int main(void)
 {
-  WDTCTL = WDTPW + WDTHOLD;                 // Stop watchdog timer
+    WDTCTL = WDTPW + WDTHOLD;                 // Stop watchdog timer
 
-  volatile clock Clock;
-  timer TimerA;
-  serverCommunication link;
-  __enable_interrupt();
+    //watchdog Watchdog;
 
-  link.readDatabase(RUManager);
+    volatile clock Clock;
+    timer TimerA;
+    serverCommunication link;
+    __enable_interrupt();
 
-  Student* aux1;
-  Student* aux2;
-  aux1 = new Student();
-  aux2 = new Student();
-  aux1->setRegistration("01");
-  aux1->setCred(2);
-  aux2->setRegistration("02");
-  aux2->setCred(2);
+    link.readDatabase(RUManager);
+
+    /*
+    Student* aux0;
+    Student* aux1;
+    Student* aux2;
+    aux0 = new Student();
+    aux1 = new Student();
+    aux2 = new Student();
 
 
-  RUManager.insertInRegisteredPeopleList(aux1);
-  RUManager.insertInRegisteredPeopleList(aux2);
+    aux0->setRegistration("00");
+    aux0->setCred(0);
+    aux1->setRegistration("01");
+    aux1->setCred(5);
+    aux2->setRegistration("02");
+    aux2->setCred(5);
 
-  delete aux1;
-  delete aux2;
 
-  port P2(P2_address);
-  P2.setPinPullup(BIT1);
-  P2.setPin(BIT1);
-  P2.setInterruptEdge(BIT1, falling);
-  P2.clearInterruptFlag(BIT1);
-  P2.enableInterrupt(BIT1);
+    RUManager.insertInRegisteredPeopleList(aux0);
+    RUManager.insertInRegisteredPeopleList(aux1);
+    RUManager.insertInRegisteredPeopleList(aux2);
 
-  port P1(P1_address);
-  P1.setPinPullup(BIT1);
-  P1.setPin(BIT1);
-  P1.setInterruptEdge(BIT1, falling);
-  P1.clearInterruptFlag(BIT1);
-  P1.enableInterrupt(BIT1);
+    delete aux0;
+    delete aux1;
+    delete aux2;
 
-  __bis_SR_register(GIE);       // Enter LPM4 w/interrupt
-  while(1){
-      while(!(UCA1IFG & UCRXIFG)){
-          if(TimerA.timerExpired())
-                link.writeDatabase(RUManager);
-      }
-          bluetooth.receiveData(RUManager);
-      }
+    */
+
+    port P2(P2_address);
+    P2.setPinPullup(BIT1);
+    P2.setPin(BIT1);
+    P2.setInterruptEdge(BIT1, falling);
+    P2.clearInterruptFlag(BIT1);
+    P2.enableInterrupt(BIT1);
+
+    port P1(P1_address);
+    P1.setPinPullup(BIT1);
+    P1.setPin(BIT1);
+    P1.setInterruptEdge(BIT1, falling);
+    P1.clearInterruptFlag(BIT1);
+    P1.enableInterrupt(BIT1);
+
+    bool var = RUManager.existRegisteredPeopleList("02");
+
+    __bis_SR_register(GIE);       // Enter LPM4 w/interrupt
+    while(1){
+        //Watchdog.watchdogResetCounter();
+        while(!(UCA1IFG & UCRXIFG)){
+        }
+        //if(TimerA.timerExpired())
+            //link.writeDatabase(RUManager);
+        bluetooth.receiveData(RUManager, RUAccessHandler);
+    }
 }
 
 #pragma vector=PORT2_VECTOR
 __interrupt void Port_2(void)
 {
-  ID++;
-  app_flag_test = false;
-  RUAccessHandler.accessRequestHandler(ID, RUManager, app_flag_test);
-  if(ID == 11)
-      ID = 0;
-  P2IFG &= ~BIT1;
+    ID++;
+    app_flag_test = false;
+    RUAccessHandler.accessRequestHandler(ID, RUManager, app_flag_test);
+    if(ID == 11)
+        ID = 0;
+    P2IFG &= ~BIT1;
 }
 
 #pragma vector=PORT1_VECTOR
 __interrupt void Port_1(void)
 {
-	  ID++;
-	  app_flag_test = false;
-	  RUAccessHandler.accessRequestHandler(ID, RUManager, app_flag_test);
-	    if(ID == 11)
-	        ID = 0;
-	  P1IFG &= ~BIT1;
+    ID++;
+    app_flag_test = false;
+    RUAccessHandler.accessRequestHandler(ID, RUManager, app_flag_test);
+    if(ID == 4)
+        ID = 0;
+    P1IFG &= ~BIT1;
 }

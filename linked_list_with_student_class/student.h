@@ -45,7 +45,7 @@ class Student
 		
 		std::string getRegistration()
 		{
-			return registration;
+			return registration.substr(0, 2);
 		}
 		
 		int getCred()

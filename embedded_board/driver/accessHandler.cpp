@@ -62,7 +62,7 @@ void accessHandler::openTurnstile(void){
 
     P1.clearPin(BIT0);
     P4.setPin(BIT7);
-    __delay_cycles(10*400000);
+    __delay_cycles(20*400000);
     closeTurnstile();
 }
 

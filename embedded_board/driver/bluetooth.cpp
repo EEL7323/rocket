@@ -20,7 +20,7 @@ void Bluetooth::initBluetooth(int baud_rate){
     //  Serial.begin(baud_rate);
 }
 
-void Bluetooth::receiveData(dataManagement &Manager)
+void Bluetooth::receiveData(dataManagement &Manager, accessHandler &Handler)
 {
     __delay_cycles(4000000);
     uartString =  uartHandler.getBuffer();
@@ -38,13 +38,15 @@ void Bluetooth::receiveData(dataManagement &Manager)
         uartString.erase(2,1);
     }
 
+    bool var2 = Manager.existRegisteredPeopleList(uartString);
+
     //  ID_int = std::stoi(uartString, &sz);
     sscanf(uartString.c_str(), "%hhu", &ID_int);
 
     switch(uartdata) {
     case 0: { // LOGIN
         // str2 vai ser pego fazendo uma varredura na lista
-        if(Manager.existRegisteredPeopleList(uartString))
+        if(var2)
         {
             access_free = 1;
             users_inside =  Manager.getPeopleInRu();
@@ -73,6 +75,7 @@ void Bluetooth::receiveData(dataManagement &Manager)
                 if(users_inside <= MAX_RU_CAPACITY){
                     Manager.insertInRU(&Manager.getFromRegisteredPeopleList(ID_int));
                     Manager.increaseTotalPeopleInRU();
+                    Handler.openTurnstile();
                 }
                 transmitData((uint8_t*)("1\n"));
             }
@@ -93,6 +96,7 @@ void Bluetooth::receiveData(dataManagement &Manager)
         if (!(captcha_verify.compare(0,1, captcha, 0, 1))) {
             Manager.decreaseTotalPeopleInRU();  //users_inside--;
             transmitData((uint8_t*)("1\n"));
+            Handler.openTurnstile();
         }
         else {
             transmitData((uint8_t*)("4\n"));

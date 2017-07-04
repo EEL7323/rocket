@@ -5,7 +5,7 @@ uint8_t timer::counter = 0;
 timer::timer(){
     TA0CCR0 = 50000;
     TA0CTL = TASSEL_2 + MC_1 + TACLR + ID_3;
-    TA0CCTL0 |= CCIE;
+    //TA0CCTL0 |= CCIE;
 }
 
 timer::~timer(){

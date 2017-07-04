@@ -282,7 +282,7 @@ public:
         while(c)
         {
             str = c->getValue()->getRegistration();
-            if(str==v)
+            if(!str.compare(0,2, v, 0, 2))
                 return true;
             c = c->getNext();
         }
